@@ -123,6 +123,15 @@ letter-spacing: 0.5px;
   box-shadow: 0 15px 40px rgba(255,60,140,0.5), inset 0 3px 5px rgba(255,255,255,0.4);
 }
 
+/* Disabled button style */
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  filter: grayscale(100%);
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* Specific Proposal Buttons (also softened) */
 .btn-yes {
   background: linear-gradient(180deg, #b3f0ff, #00b3e6);
@@ -255,11 +264,11 @@ line-height: 1.6;
   <div id="s2" class="screen">    
     <div id="msgTop" class="typewriter"></div>  
     <div style="margin-top:12px; margin-bottom: 20px;" class="row">    
-      <button class="btn" onclick="showProposalScreen()">𝐏ᴀᴋᴋᴀ 𝐍ᴀᴀ?</button>    
+      <button id="askButton" class="btn" onclick="showProposalScreen()" disabled>**𝐏ᴀᴋᴋᴀ 𝐍ᴀᴀ?** [First, read my heart out below]</button>    
     </div>
     <div class="langGrid" id="langGrid"></div>    
     <div style="margin-top:25px" class="row">    
-      <button class="btn" onclick="togglePoem()">𝙵𝙾𝚁 𝚈𝙾𝚄</button>    
+      <button class="btn" onclick="togglePoem()">Read My Heart Out 📖</button>    
       <button class="btn" onclick="shareWhatsApp()">S𝙷𝙰𝚁𝙴 𝙿𝚁𝙾𝙿𝙾𝚂𝙰𝙻 𝙻𝙸𝙽𝙺</button>    
       <button class="btn" onclick="goBackHome()">⟵ 𝚂𝚃𝙰𝚁𝚃 𝙾𝚅𝙴𝚁</button>    
     </div>    
@@ -310,11 +319,13 @@ const poemBox   = document.getElementById('poemBox');
 const proposalMsg = document.getElementById('proposalMsg'); 
 const proposalMusic = document.getElementById('proposalMusic');    
 const celebrationMusic = document.getElementById('celebrationMusic');    
+const askButton = document.getElementById('askButton'); // New reference
 const fxRoot = document.getElementById('fxRoot');    
 let musicEnabled = false;
 let currentFrom = '';
 let currentTo = '';
 let poemVisible = false;
+let poemReadOnce = false; // New state variable
 
 /* 40 "I love you" translations */
 const iLoveYou = [
@@ -509,6 +520,11 @@ slowRevealLanguageGrid();
 }
 
 function showProposalScreen(){
+    if (!poemReadOnce) {
+        alert("Please read the poem (Read My Heart Out 📖) first!");
+        return;
+    }
+
     showScreen('s2a');
     try { proposalMusic.pause(); } catch(e){}
 
@@ -520,6 +536,7 @@ function showProposalScreen(){
 function goBackHome(){
 history.replaceState(null,'',location.pathname);
 currentFrom=''; currentTo='';
+poemReadOnce = false; // Reset state
 try { proposalMusic.pause(); celebrationMusic.pause(); } catch(e){}
 musicEnabled = false;
 showScreen('s1');
@@ -538,6 +555,13 @@ if(poemVisible){
   smallBurst();
   typeWriter(poemText, poemBox, 100); // Slower typewriter speed
   try { proposalMusic.volume = 0.9; setTimeout(()=>proposalMusic.volume = 1.0, 1200); } catch(e){}
+  
+  // *** NEW FUNCTIONALITY: Enable the 'Ask' button after reading poem ***
+  if (!poemReadOnce && askButton) {
+      poemReadOnce = true;
+      askButton.disabled = false;
+      askButton.innerHTML = '**𝐏ᴀᴋᴋᴀ 𝐍ᴀᴀ?** [Click here to ask the final question!]';
+  }
 }
 }
 
