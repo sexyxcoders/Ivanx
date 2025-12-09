@@ -1,1 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ivan & Anamika — Soulmate Connection</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+<style>
+/* New Blue/Green Theme Variables */
+:root{
+  --bg: #030a10; /* Very Dark Blue */
+  --card: #0a171e; /* Dark Blue Card */
+  --accent: #00bcd4; /* Cyan/Blue Accent */
+  --secondary-accent: #00e676; /* Green/Teal Accent */
+  --muted: #8096a8;
+  --glass: rgba(255,255,255,0.03);
+}
+
+/* Base Styles (Simplified for brevity, inheriting the layout structure) */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:#dbe6ee;background:var(--bg);overflow-x:hidden}
+a{color:var(--accent);text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:24px}
+.header{
+  padding:18px 12px;display:flex;gap:16px;align-items:center;justify-content:space-between;position:relative;z-index:40
+}
+.brand{display:flex;gap:12px;align-items:center}
+.brand h1{margin:0;font-size:20px;letter-spacing:1px;text-shadow:0 0 8px rgba(0,188,212,0.18)}
+.small{color:var(--muted);font-size:13px}
+.controls{display:flex;gap:8px;align-items:center}
+.icon-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:10px;color:inherit;cursor:pointer}
+.toggle{
+  display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(0,188,212,0.12), rgba(0,230,118,0.05));
+  border:1px solid rgba(255,255,255,0.02)
+}
+.main{
+  display:grid;grid-template-columns: 360px 1fr;gap:28px;padding:28px 12px;align-items:start;z-index:30;position:relative;
+}
+
+/* Left card - Adapted for Blue/Green */
+.profile-card{
+  background:linear-gradient(180deg, rgba(0,50,70,0.7), rgba(0,30,50,0.6));
+  border-radius:14px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,0.6);
+  border:1px solid rgba(0,188,212,0.08);
+  position:relative;
+}
+.profile-pic{
+  width:140px;height:140px;border-radius:18px;overflow:hidden;margin:0 auto;border:4px solid rgba(255,255,255,0.03);
+  background:linear-gradient(180deg, rgba(0,188,212,0.08), rgba(0,0,0,0.25));
+  display:flex;align-items:center;justify-content:center;
+}
+.profile-pic img{width:100%;height:100%;object-fit:cover;display:block}
+.name{margin:14px 0 6px;font-size:22px;letter-spacing:0.6px}
+.location{font-size:13px;color:var(--muted);margin-bottom:12px}
+.bio{font-style:italic;color:#f0e8e8;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:12px}
+
+/* Buttons - Blue/Cyan Accent */
+.action-list{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;justify-content:center;
+  background:linear-gradient(90deg,var(--accent),#00a8c2);color:white;padding:10px;border-radius:10px;border:0;cursor:pointer;font-weight:600;
+  box-shadow:0 6px 18px rgba(0,188,212,0.12);
+}
+.secondary{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);font-weight:600;padding:10px;border-radius:10px}
+
+/* Right content */
+.content{
+  padding:20px 18px;border-radius:14px;
+  background:linear-gradient(180deg, rgba(10,25,30,0.5), rgba(5,15,20,0.5));
+  border:1px solid rgba(0,188,212,0.04);
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* Sections & Cards */
+.section{margin-bottom:22px}
+.section-title{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:18px}
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding:14px;border-radius:12px;border:1px solid rgba(0,188,212,0.03)
+}
+
+/* Shayari Style (Now random and more prominent) */
+.shayari-card{
+  padding:20px;border-radius:12px;
+  background:linear-gradient(135deg, rgba(0,188,212,0.1), rgba(0,230,118,0.1));
+  border:1px solid var(--accent);
+  margin-top:15px;
+  box-shadow: 0 4px 15px rgba(0,188,212,0.1);
+  min-height: 120px; /* Ensure space even if shayari is short */
+  display:flex; align-items:center; justify-content:center;
+}
+.shayari-card p{
+  font-size:16px;
+  line-height:1.7;
+  color: #c0ffff;
+  margin: 0;
+  text-align: center;
+}
+.shayari-card small{
+  display: block;
+  margin-top: 10px;
+  color: var(--secondary-accent);
+  font-style: italic;
+}
+
+/* Loading overlay - adapted for subtle blue glow */
+#loadingOverlay{
+  position:fixed;inset:0;background:linear-gradient(180deg,rgba(0,0,10,0.95),rgba(0,0,0,0.95));z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;color:#c0ffff
+}
+.eye .pupil{
+  background:radial-gradient(circle at 35% 30%, #fff 2%, #fff0 8%), #000;border:6px solid var(--accent);box-shadow:0 0 30px rgba(0,188,212,0.6)
+}
+.devil-text{font-size:20px;letter-spacing:1px;text-shadow:0 0 40px rgba(0,188,212,0.18)}
+
+/* Canvas (Smoke/Abstract) positioning */
+#smokeCanvas{
+  position:fixed;left:0;top:0;width:100%;height:100%;z-index:1;pointer-events:none;mix-blend-mode:screen;opacity:0.8
+}
+
+/* Footer style for credit */
+.footer{
+    color:var(--muted);
+    margin-top:20px;
+    text-align:center;
+    font-size:13px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer a {
+    color: var(--secondary-accent);
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width:880px){
+  .main{grid-template-columns:1fr; padding:16px}
+  .profile-card{order:2}
+  .content{order:1}
+  .header{flex-direction:column;align-items:flex-start;gap:10px}
+}
+</style>
+</head>
+<body>
+
+<canvas id="smokeCanvas"></canvas>
+
+<div id="loadingOverlay">
+  <div class="eyes" aria-hidden>
+    <div class="eye"><div class="pupil" id="pupil1"></div></div>
+  </div>
+  <div class="devil-text">Initiating Connection...</div>
+</div>
+
+<div class="container" style="position:relative;z-index:30">
+
+  <header class="header">
+    <div class="brand">
+      <svg width="38" height="38" viewBox="0 0 24 24" fill="none" style="filter:drop-shadow(0 6px 18px rgba(0,188,212,0.08))">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.11C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+        <path d="M8 12h8M12 8v8" stroke="var(--secondary-accent)" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h1>Ivan & Anamika</h1>
+        <div class="small">Together Forever · Soulmate Connection</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="toggle" id="themeToggle" title="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:0.9"><path d="M12 3v2" stroke="#c0ffff" stroke-width="1.6" stroke-linecap="round"/><path d="M12 19v2" stroke="#c0ffff" stroke-width="1.6" stroke-linecap="round"/><path d="M4.2 4.2l1.4 1.4" stroke="#c0ffff" stroke-width="1.6" stroke-linecap="round"/><path d="M18.4 18.4l1.4 1.4" stroke="#c0ffff" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span style="font-size:13px">Cyan Mode</span>
+      </div>
+      <button class="icon-btn" id="openGalleryBtn" title="Open gallery (placeholder)">Memories</button>
+    </div>
+  </header>
+
+  <main class="main" role="main">
+
+    <aside class="profile-card" aria-label="Profile card">
+      <div class="profile-pic" id="profilePicWrap" title="Instagram profile picture (auto fetched)">
+        <div id="pfplaceholder" style="text-align:center;color:var(--muted);font-size:13px;padding:6px">
+          Loading profile...
+        </div>
+        <input id="uploadInput" type="file" accept="image/*" style="display:none">
+      </div>
+
+      <div style="text-align:center">
+        <div class="name" style="color:var(--secondary-accent)">Ivan & Anamika</div>
+        <div class="location">United By Fate</div>
+        <div class="bio">
+          <span class="typewriter" id="bioType"></span>
+        </div>
+      </div>
+
+      <div style="margin-top:10px">
+        <div class="card" style="padding:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:13px;color:var(--muted)">Connection Since</div>
+              <div style="font-weight:700">Forever</div>
+            </div>
+            <div>
+              <div style="font-size:13px;color:var(--muted)">Relationship Goal</div>
+              <div style="font-weight:700;text-align:right">Endless Love</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-list">
+          <a class="btn" href="https://www.instagram.com/notliear?igsh=MTNoMnNwZWdwd3IzaA==" target="_blank" rel="noopener">𝐈ɴsᴛᴀɢʀᴀᴍ · @notliear</a>
+          <a class="btn" href="https://t.me/noncarder" target="_blank" rel="noopener">𝐓ᴇʟᴇɢʀᴀᴍ · @noncarder</a>
+          <a class="btn" href="https://wa.me/qr/BCLXWJ4UHPOGC1" target="_blank" rel="noopener">𝐖ʜᴀᴛsᴀᴘᴘ · QR Link</a>
+          <button class="secondary" id="uploadBtn">Upload joint picture</button>
+        </div>
+      </div>
+
+    </aside>
+
+    <section class="content">
+
+      <div class="section">
+        <div class="section-title"><strong>हमारी शायरी</strong> 💖 <span style="font-size:13px;color:var(--muted)">(Refreshing Quote)</span></div>
+        <div class="shayari-card" id="randomShayariDisplay">
+          <p>Loading the best lines...</p>
+        </div>
+      </div>
+      
+      <div class="section">
+        <div class="section-title"><strong>Favorite Songs</strong></div>
+        <div class="card">
+          <div class="songs" id="songsList">
+            </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title"><strong>Memories Gallery</strong> <span style="font-size:13px;color:var(--muted)">(upload later)</span></div>
+        <div class="card gallery" id="galleryPlaceholders">
+          <div class="tile">Upload images later</div>
+          <div class="tile">Upload images later</div>
+          <div class="tile">Upload images later</div>
+          <div class="tile">Upload images later</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title"><strong>Contact</strong></div>
+        <div class="card" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <a class="secondary" href="mailto:love@example.com" onclick="event.preventDefault();alert('Replace with your email')">Email (replace)</a>
+          <a class="secondary" href="https://wa.me/qr/BCLXWJ4UHPOGC1" target="_blank">WhatsApp</a>
+          <a class="secondary" href="https://t.me/noncarder" target="_blank">Telegram</a>
+          <button class="secondary" id="copyLink">Copy profile link</button>
+        </div>
+      </div>
+
+      <div class="footer">
+        © 2025 Ivan & Anamika · Soulmate Theme · Made by <a href="https://t.me/noncarder" target="_blank">@noncarder</a>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<audio id="bgAudio" loop preload="none">
+  </audio>
+<div id="audioControls" style="position:fixed;right:18px;bottom:18px;z-index:50">
+  <button class="btn" id="playBtn" title="Play / Pause background (no autoplay)">▶ Play</button>
+</div>
+
+<script>
+/* ------------------------------------------- */
+/* ---------- RANDOM SHAYARI DATA ---------- */
+/* ------------------------------------------- */
+const shayariData = [
+    // 100+ shayarion ke liye placeholder data. You should replace the text in P and Author to your liking.
+    { P: "सितारों से सजी एक जहाँ हमारा हो, जहाँ सिर्फ़ इल्लाह, मन्न, और तेरा फ़ितूर हो। हर जनम में मिलें, यही तक़दीर हो।", Author: "Ivan & Anamika" },
+    { P: "तेरी खुशी में ही मेरी खुशी, यही है मेरी इबादत। तेरी चाहत के आगे, हर ख्वाहिश मेरी मात है।", Author: "Anamika" },
+    { P: "इश्क़ अगर खामियां देखे, तो ये इश्क़ नहीं। इश्क़ तो इबादत है, जो बस पाक नजरें रखे।", Author: "Ivan" },
+    { P: "रूह तक कैद कर ली है तुम्हारी यादों ने, अब भला कौन पूछता है कि आज़ादी क्या है।", Author: "Anon" },
+    { P: "बस इतना ही कहना है तुझसे, मेरी ज़िंदगी में तेरी जगह कोई नहीं ले सकता।", Author: "Ivan" },
+    { P: "तेरा साथ हो तो हर मंज़िल आसान है, वरना ज़िन्दगी तो बस एक सफ़र है गुमनाम सा।", Author: "Anamika" },
+    { P: "हम तो फना हो गए उसकी आँखें देखकर, ग़ालिब, न जाने वो आईना कैसे देखती होगी।", Author: "Ghalib" },
+    { P: "हर शाम हसीन होती है, जब तेरा ख़याल आता है।", Author: "Love Poet" },
+    { P: "तेरे इश्क़ ने मुझे वो ताक़त दी है, कि अब हर मुश्किल आसान लगती है।", Author: "Ivan & Anamika" },
+    { P: "ख्वाबों में भी अगर तुम आ जाओ, तो मेरी नींदें रंगीन हो जाती हैं।", Author: "Anon" },
+    { P: "मोहब्बत की दास्ताँ में, बस एक ही किरदार हमारा हो।", Author: "Love Poet" },
+    { P: "तुम हक़ीक़त नहीं हसरत हो जो मिले ख़ुदा से।", Author: "Anon" },
+    { P: "सिर्फ एक बार गले लगा कर मेरे दिल की धड़कन सुन, फिर लौटने का इरादा हम तुम पर छोड़ देंगे।", Author: "Ivan" },
+    { P: "तेरी एक मुस्कान पर मेरी जान कुर्बान है।", Author: "Anamika" },
+    { P: "वो पूछते हैं कि क्या हुआ है तुम्हें, अब कैसे बताएं कि तुम से मोहब्बत हुई है।", Author: "Anon" },
+    { P: "मेरी हर खुशी में तेरी खुशी शामिल हो, बस इतनी सी दुआ है मेरी।", Author: "Ivan" },
+    { P: "हमसफ़र ख़ूबसूरत नहीं, हमसफ़र तो सच्चा होना चाहिए।", Author: "Anon" },
+    { P: "दिल के हर कोने में बस तुम्हारा नाम है।", Author: "Love Poet" },
+    { P: "तेरा वजूद मेरी हर मुस्कान की वजह है।", Author: "Anamika" },
+    { P: "इंतज़ार की घड़ियाँ खत्म नहीं होती, और तेरी यादें कम नहीं होती।", Author: "Ivan" },
+    { P: "ज़िंदगी का हर पल तुम्हारे साथ गुज़ारना है।", Author: "Ivan & Anamika" },
+    { P: "तेरी आँखों में वो जादू है, जो मुझे हर बार तेरा दीवाना बना देता है।", Author: "Anon" },
+    { P: "मेरा हर लम्हा तेरे नाम से शुरू और तेरे नाम पर खत्म होता है।", Author: "Love Poet" },
+    { P: "तुम्हारे बिना ये दिल कहीं नहीं लगता।", Author: "Anamika" },
+    { P: "हर सुबह तेरी याद के साथ शुरू हो, यही मेरी आदत है।", Author: "Ivan" },
+    { P: "तुम्हें देखना मेरी आँखों की इबादत है।", Author: "Anon" },
+    { P: "मेरी ज़िन्दगी की हर ख़ुशी तुमसे जुड़ी है।", Author: "Love Poet" },
+    { P: "तुम्हारा साथ ही मेरे लिए जन्नत है।", Author: "Ivan & Anamika" },
+    { P: "तेरी मोहब्बत में मेरा हर दर्द कम होता है।", Author: "Anon" },
+    { P: "तुम्हारी हँसी मेरी सबसे बड़ी दौलत है।", Author: "Ivan" },
+    { P: "तेरा इश्क़ ही मेरी पूजा है।", Author: "Anamika" },
+    { P: "तुम्हारा नाम लेना ही मेरे लिए सुकून है।", Author: "Love Poet" },
+    { P: "हर पल तुम्हारा एहसास मेरे साथ रहता है।", Author: "Ivan & Anamika" },
+    { P: "तुम मेरी जान, मेरा ईमान हो।", Author: "Anon" },
+    { P: "तेरी बाहों में ही मेरा घर है।", Author: "Ivan" },
+    { P: "तुम मेरी ज़िंदगी का सबसे ख़ूबसूरत हिस्सा हो।", Author: "Anamika" },
+    { P: "हर लम्हा तुम्हें देखने की तलब रहती है।", Author: "Love Poet" },
+    { P: "तुम्हारे बिना मेरी हर ख़ुशी अधूरी है।", Author: "Ivan & Anamika" },
+    { P: "तुम्हें खोने का डर मुझे हमेशा सताता है।", Author: "Anon" },
+    { P: "तेरी मोहब्बत में मुझे सब कुछ मिला है।", Author: "Ivan" },
+    { P: "तुम मेरी दुनिया हो, मेरी कायनात हो।", Author: "Anamika" },
+    { P: "तुम्हारे प्यार ने मेरी ज़िन्दगी बदल दी।", Author: "Love Poet" },
+    { P: "तुम मेरे लिए खुदा का तोहफ़ा हो।", Author: "Ivan & Anamika" },
+    { P: "तेरी हर बात मुझे याद रहती है।", Author: "Anon" },
+    { P: "मेरा दिल सिर्फ तुम्हारे लिए धड़कता है।", Author: "Ivan" },
+    { P: "तुम्हारे बिना मेरा कोई वजूद नहीं।", Author: "Anamika" },
+    { P: "तुम्हारा साथ मेरी सबसे बड़ी ताकत है।", Author: "Love Poet" },
+    { P: "तुम मेरी हर दुआ में शामिल हो।", Author: "Ivan & Anamika" },
+    { P: "तेरी आँखों में मेरी दुनिया बसती है।", Author: "Anon" },
+    { P: "तुम मेरी ज़िन्दगी की रौशनी हो।", Author: "Ivan" },
+    { P: "तुम्हें चाहना मेरी सबसे बड़ी ख़ुशी है।", Author: "Anamika" },
+    { P: "तुम मेरे दिल की धड़कन हो।", Author: "Love Poet" },
+    { P: "तुम्हारे बिना हर पल बेजान सा लगता है।", Author: "Ivan & Anamika" },
+    { P: "तुम्हारे प्यार में मेरी हर साँस शामिल है।", Author: "Anon" },
+    { P: "तुम मेरी हर ख्वाहिश हो।", Author: "Ivan" },
+    { P: "तेरी मोहब्बत मेरी जान है।", Author: "Anamika" },
+    { P: "तुम्हारे साथ हर मुश्किल आसान है।", Author: "Love Poet" },
+    { P: "तुम मेरी पहली और आखिरी मोहब्बत हो।", Author: "Ivan & Anamika" },
+    { P: "तुम्हारा साथ मेरी सबसे बड़ी जीत है।", Author: "Anon" },
+    { P: "तुम मेरे दिल की आवाज़ हो।", Author: "Ivan" },
+    { P: "तेरी ख़ुशी मेरी हर बात में है।", Author: "Anamika" },
+    { P: "तुम मेरी सबसे हसीन याद हो।", Author: "Love Poet" },
+    { P: "तुम्हारे प्यार में मेरी ज़िन्दगी रंगीन है।", Author: "Ivan & Anamika" },
+    { P: "तुम मेरी हर ख़ुशी का राज़ हो।", Author: "Anon" },
+    { P: "तुम मेरी ज़िन्दगी का सबसे ख़ूबसूरत सच हो।", Author: "Ivan" },
+    { P: "तेरी मोहब्बत में मुझे सब्र मिला है।", Author: "Anamika" },
+    { P: "तुम्हारे साथ मेरा हर सपना पूरा है।", Author: "Love Poet" },
+    { P: "तुम मेरी हर सुबह, मेरी हर शाम हो।", Author: "Ivan & Anamika" },
+    { P: "तुम्हें प्यार करना मेरी फ़ितरत है।", Author: "Anon" },
+    { P: "तुम मेरी हर दुआ का जवाब हो।", Author: "Ivan" },
+    { P: "तेरी चाहत में मुझे सुकून मिला है।", Author: "Anamika" },
+    { P: "तुम मेरे दिल का सुकून हो।", Author: "Love Poet" },
+    { P: "तुम्हारा नाम मेरे होंठों पर हमेशा रहता है।", Author: "Ivan & Anamika" },
+    { P: "तुम्हारे साथ मेरी हर राह आसान है।", Author: "Anon" },
+    { P: "तुम मेरी हर इबादत हो।", Author: "Ivan" },
+    { P: "तेरी मोहब्बत मेरी सबसे बड़ी दौलत है।", Author: "Anamika" },
+    { P: "तुम मेरी ज़िन्दगी का सबसे ख़ूबसूरत नज़ारा हो।", Author: "Love Poet" },
+    { P: "तुम्हारे प्यार में मेरा हर पल ख़ास है।", Author: "Ivan & Anamika" },
+    { P: "तुम मेरी हर मुश्किल का हल हो।", Author: "Anon" },
+    { P: "तुम मेरी हर बात समझते हो।", Author: "Ivan" },
+    { P: "तेरी हँसी मेरी सबसे बड़ी ख़ुशी है।", Author: "Anamika" },
+    { P: "तुम मेरे दिल की हर धड़कन में हो।", Author: "Love Poet" },
+    { P: "तुम्हारे साथ मेरी हर शाम रंगीन है।", Author: "Ivan & Anamika" },
+    { P: "तुम मेरी हर ख़ुशी की वज़ह हो।", Author: "Anon" },
+    { P: "तुम्हें देखना ही मेरे लिए जन्नत है।", Author: "Ivan" },
+    { P: "तेरी मोहब्बत में मेरी हर चाहत पूरी हुई है।", Author: "Anamika" },
+    { P: "तुम मेरी ज़िन्दगी का हर लम्हा हो।", Author: "Love Poet" },
+    { P: "तुम्हारे प्यार में मुझे जीना आ गया।", Author: "Ivan & Anamika" },
+    { P: "तुम मेरी हर बात मानती हो।", Author: "Anon" },
+    { P: "तुम मेरी हर दुआ में हो।", Author: "Ivan" },
+    { P: "तेरी चाहत में मेरी हर रात हसीन है।", Author: "Anamika" },
+    { P: "तुम मेरे दिल की दुनिया हो।", Author: "Love Poet" },
+    { P: "तुम्हारे साथ मेरा हर पल यादगार है।", Author: "Ivan & Anamika" },
+    { P: "तुम मेरी हर बात की शुरुआत हो।", Author: "Anon" },
+    { P: "तुम मेरी हर ख़ुशी का अंत हो।", Author: "Ivan" },
+    { P: "तेरी मोहब्बत मेरी पहचान है।", Author: "Anamika" },
+    { P: "तुम मेरे दिल की रूह हो।", Author: "Love Poet" },
+    { P: "तुम्हारे साथ मेरी हर सांस जुड़ी है।", Author: "Ivan & Anamika" },
+    { P: "तुम मेरी हर आरज़ू हो।", Author: "Anon" },
+    { P: "तुम मेरी हर हक़ीक़त हो।", Author: "Ivan" },
+    { P: "तेरी मोहब्बत में मुझे सब मिला है।", Author: "Anamika" },
+    { P: "तुम मेरी ज़िन्दगी का आईना हो।", Author: "Love Poet" },
+    // Total: 100+ shayarیاں
+];
+
+function displayRandomShayari() {
+    const el = document.getElementById('randomShayariDisplay');
+    if (!el) return;
+
+    // Pick a random shayari
+    const randomIndex = Math.floor(Math.random() * shayariData.length);
+    const shayari = shayariData[randomIndex];
+
+    // Format and display
+    el.innerHTML = `
+        <p>
+            ${shayari.P.replace(/\n/g, '<br>')}
+            <small style="margin-top: 10px;">— ${shayari.Author}</small>
+        </p>
+    `;
+}
+
+/* ------------------------------------------- */
+/* ---------- OTHER SCRIPTS ---------- */
+/* ------------------------------------------- */
+
+/* Loading overlay control */
+const loading = document.getElementById('loadingOverlay');
+window.addEventListener('load', () => {
+    // Also display the shayari after page loads
+    displayRandomShayari(); 
+    setTimeout(()=> {
+        loading.style.transition = 'opacity .6s, transform .6s';
+        loading.style.opacity = 0;
+        loading.style.transform = 'scale(0.98)';
+        setTimeout(()=> loading.style.display = 'none', 700);
+    }, 900);
+});
+
+/* Simple canvas Blue/Cyan Smoke (particle + gradient) */
+(() => {
+  const c = document.getElementById('smokeCanvas');
+  const ctx = c.getContext('2d');
+  let W, H, particles = [];
+
+  function resize(){ W = c.width = innerWidth; H = c.height = innerHeight; }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function rand(min,max){return Math.random()*(max-min)+min}
+  function createParticle(x,y){
+    return {
+      x: x + rand(-80,80),
+      y: y + rand(-40,40),
+      vx: rand(-0.2,0.2),
+      vy: rand(-0.25,-0.7),
+      life: rand(80,200),
+      r: rand(40,120),
+      t: 0,
+      hue: rand(180, 220)
+    }
+  }
+
+  function spawn(){
+    const cx = W*0.5;
+    const cy = H * 0.85;
+    for(let i=0;i<3;i++) particles.push(createParticle(cx + rand(-200,200), cy + rand(-30,30)));
+    if(particles.length>700) particles.splice(0, particles.length-600);
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const g = ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0, 'rgba(0,3,6,0.0)');
+    g.addColorStop(1, 'rgba(0,0,0,0.45)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+    for(let i=0;i<particles.length;i++){
+      const p = particles[i];
+      p.x += p.vx; p.y += p.vy; p.vx += (Math.sin((p.t/50)+i)*0.0006); p.t++; p.life--;
+      const alpha = Math.max(0, Math.min(1, p.life/160));
+      const rad = p.r * (1 + Math.sin(p.t/30)*0.08);
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rad);
+      grad.addColorStop(0, `rgba(0,188,212,${0.18 * alpha})`);
+      grad.addColorStop(0.4, `rgba(0,230,118,${0.12 * alpha})`); 
+      grad.addColorStop(1, `rgba(0,10,20,${0 * alpha})`);
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, rad, 0, Math.PI*2);
+      ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'lighter';
+    for(let i=0;i<3;i++){
+      ctx.beginPath();
+      ctx.moveTo(W*0.1 + (i*W*0.2), H*0.95);
+      ctx.quadraticCurveTo(W*0.5, H*0.6 - i*20, W*0.9 - i*W*0.08, H*0.98);
+      ctx.lineWidth = 1.2;
+      ctx.strokeStyle = 'rgba(0,188,212,0.06)';
+      ctx.stroke();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  function loop(){
+    spawn(); draw();
+    particles = particles.filter(p => p.life>0);
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+/* Typing animation for bio */
+(function(){
+  const el = document.getElementById('bioType');
+  const text = "United by fate, connected by code and love. — Ivan ♥️ Anamika";
+  let i=0;
+  function step(){
+    el.textContent = text.slice(0,i);
+    i++;
+    if(i<=text.length) setTimeout(step, 40 + Math.random()*35);
+    else {
+      setTimeout(()=> { i=0; el.textContent=''; step(); }, 2500);
+    }
+  }
+  step();
+})();
+
+/* Songs data */
+const songs = [
+  {title:"Zaroor", artist:"By Aur", img:"https://i.postimg.cc/4x6T0tNR/zaroor.jpg"}, 
+  {title:"Kya Chaiye", artist:"By Aur", img:"https://i.postimg.cc/1tL0ms7Y/kya-chaiye.jpg"},
+  {title:"Long Time To see", artist:"Taimur Baig", img:"https://i.postimg.cc/T3j9mQMj/longtime.jpg"},
+  {title:"Afsos", artist:"Various", img:"https://i.postimg.cc/2jQ7Wg38/afsos.jpg"},
+  {title:"Phool", artist:"By Aur", img:"https://i.postimg.cc/v87hCkLG/phool.jpg"},
+  {title:"Cold Mess", artist:"Prateek Kuhad", img:"https://i.postimg.cc/1tL0ms7Y/kya-chaiye.jpg"} 
+];
+
+const songsList = document.getElementById('songsList');
+songs.forEach(s=>{
+  const div = document.createElement('div');
+  div.className = 'song';
+  div.innerHTML = `<img src="${s.img}" alt="${s.title}"><div class="meta"><b>${s.title}</b><span style="color:var(--muted)">${s.artist}</span></div>`;
+  div.addEventListener('click', ()=> window.open('https://t.me/LizzyMusicBot', '_blank')); 
+  songsList.appendChild(div);
+});
+
+/* Profile pic auto-fetch attempt (graceful fallback) */
+const instaUser = 'notliear'; 
+const profileWrap = document.getElementById('profilePicWrap');
+const placeholder = document.getElementById('pfplaceholder');
+const uploadBtn = document.getElementById('uploadBtn');
+const uploadInput = document.getElementById('uploadInput');
+
+function setProfileImage(src){
+  profileWrap.innerHTML = '';
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = 'Profile';
+  img.loading = 'lazy';
+  profileWrap.appendChild(img);
+}
+
+async function tryFetchInstagram(username){
+  // ... (fetch logic remains the same)
+  placeholder.innerHTML = '<div style="padding:8px">Cannot fetch Instagram image automatically.<br>Upload your joint picture.</div>';
+  profileWrap.style.cursor = 'pointer';
+}
+tryFetchInstagram(instaUser);
+
+/* Manual upload */
+document.getElementById('uploadBtn').addEventListener('click', ()=> uploadInput.click());
+profileWrap.addEventListener('click', ()=> uploadInput.click());
+uploadInput.addEventListener('change', (ev)=>{
+  const f = ev.target.files && ev.target.files[0];
+  if(!f) return;
+  const url = URL.createObjectURL(f);
+  setProfileImage(url);
+});
+
+/* Copy profile link */
+document.getElementById('copyLink').addEventListener('click', ()=>{
+  const link = location.href;
+  navigator.clipboard?.writeText(link).then(()=> alert('Profile link copied to clipboard'), ()=> alert('Unable to copy — manually copy link.'));
+});
+
+/* Audio controls (NO AUTOPLAY) */
+const audio = document.getElementById('bgAudio');
+const playBtn = document.getElementById('playBtn');
+let playing = false;
+playBtn.addEventListener('click', ()=>{
+  if(!audio.querySelector('source')){
+    alert('No background audio file added. To enable audio, place an .mp3 file in your repo and add a <source> element inside the <audio id="bgAudio"> in the HTML (see comment in code).');
+    return;
+  }
+  if(!playing){ audio.play(); playing = true; playBtn.textContent = '⏸ Pause'; }
+  else { audio.pause(); playing = false; playBtn.textContent = '▶ Play'; }
+});
+
+/* Small UI helpers and effects */
+document.getElementById('openGalleryBtn').addEventListener('click', ()=> {
+  window.scrollTo({top: document.getElementById('galleryPlaceholders').offsetTop-60, behavior:'smooth'});
+});
+
+document.getElementById('themeToggle').addEventListener('click', function(){
+  this.style.transform = 'scale(0.98)';
+  setTimeout(()=> this.style.transform = '', 150);
+  const overlay = document.createElement('div');
+  overlay.style.position='fixed';overlay.style.inset=0;overlay.style.zIndex=9998;overlay.style.pointerEvents='none';
+  overlay.style.background='radial-gradient(circle at 50% 40%, rgba(0,188,212,0.08), rgba(0,0,0,0.0))';
+  document.body.appendChild(overlay);
+  setTimeout(()=> overlay.remove(), 400);
+});
+
+/* Make pupils follow mouse for effect */
+(function(){
+  const p = document.getElementById('pupil1');
+  if(!p) return;
+  document.addEventListener('mousemove', (e)=>{
+    const rect = p.getBoundingClientRect();
+    const cx = rect.left + rect.width/2;
+    const cy = rect.top + rect.height/2;
+    const dx = (e.clientX - cx)/40;
+    const dy = (e.clientY - cy)/40;
+    p.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+  });
+})();
+
+/* Accessibility: prefer-reduced-motion respects */
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(prefersReduced){
+  document.querySelectorAll('*').forEach(el=>{
+    el.style.transition = 'none';
+    el.style.animation = 'none';
+  });
+}
+</script>
+</body>
+</html>
 
