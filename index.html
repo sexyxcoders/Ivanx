@@ -28,30 +28,30 @@ body{
 body::before{  
 content:"";  
 position:fixed;  
-inset:3px; /* Slightly thicker glow line */
+inset:3px;
 border-radius:22px;
-box-shadow: 0 0 150px rgba(255,120,170,0.6); /* Stronger, softer glow */
+box-shadow: 0 0 160px rgba(255,100,170,0.7); /* Stronger, softer glow */
 pointer-events:none;  
 }  
-/* container - Enhanced Glassmorphism Effect */
+/* container - Enhanced Glassmorphism Effect for better clarity */
 .container{
 width:94%;
-max-width:900px; /* Slightly narrower for focus */
+max-width:900px;
 margin:40px auto;
 padding:30px 24px;
-border-radius:25px; /* Softer edges */
-background: rgba(255, 182, 217, 0.06); /* Very subtle pink glass tint */
-border: 1px solid rgba(255, 255, 255, 0.1); /* Light border for definition */
-backdrop-filter: blur(20px) saturate(200%); /* Stronger, cleaner blur */
-box-shadow: 0 40px 90px rgba(0,0,0,0.5); /* Deep shadow */
+border-radius:25px;
+background: rgba(255, 182, 217, 0.04); /* Reduced opacity for clarity */
+border: 1px solid rgba(255, 255, 255, 0.1); 
+backdrop-filter: blur(25px) saturate(200%); /* Increased blur */
+box-shadow: 0 40px 90px rgba(0,0,0,0.6); /* Deeper shadow */
 }
 
 /* headings */
 .title{
-font-size:32px; /* Larger title */
+font-size:32px; 
 color:var(--text-light);
 margin-bottom:6px;
-text-shadow: 0 12px 40px rgba(255,80,150,0.5); /* Stronger, dramatic shadow */
+text-shadow: 0 12px 40px rgba(255,80,150,0.6); 
 font-weight: 900;
 letter-spacing: 1px;
 }
@@ -76,17 +76,17 @@ white-space:pre-wrap;
 border-right: 4px solid var(--rich-pink); 
 padding-right:8px;
 margin-bottom:20px;
-text-shadow: 0 0 12px rgba(255,182,217,0.9); /* Stronger glow */
+text-shadow: 0 0 14px rgba(255,182,217,1); /* Very strong glow */
 }
 
 /* inputs & buttons */
 .row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; align-items:center; }
 input[type="text"]{
-width:260px; /* Wider input */
+width:260px;
 padding:14px 18px;
 border-radius:14px;
 border:2px solid rgba(255,120,170,0.5);
-background: rgba(255,255,255,0.1);
+background: rgba(255,255,255,0.15); /* Slightly clearer background */
 color:var(--text-light);
 font-size:17px;
 transition: border-color .3s, box-shadow .3s;
@@ -101,39 +101,39 @@ input[type="text"]:focus {
 appearance:none;
 border:0;
 padding:14px 24px;
-border-radius:16px; /* Softer button edges */
+border-radius:16px;
 font-size:17px;
 cursor:pointer;
 color:var(--text-light);
 background: linear-gradient(180deg, var(--rich-pink), var(--accent-pink));
 box-shadow: 0 10px 35px rgba(255,80,150,0.5), inset 0 3px 5px rgba(255,255,255,0.4);
-transition: transform .15s ease, box-shadow .15s ease;
+transition: transform .2s ease, box-shadow .2s ease;
 font-weight: 600;
 letter-spacing: 0.5px;
 }
 .btn:active{ 
-  transform: translateY(2px); 
+  transform: translateY(1px); /* Smoother press */
   box-shadow: 0 5px 15px rgba(255,60,140,0.4), inset 0 1px 2px rgba(0,0,0,0.3);
 }
 .btn:hover{ 
-  transform: translateY(-3px); 
+  transform: translateY(-2px) rotateX(5deg); /* Subtle 3D tilt on hover */
   box-shadow: 0 20px 50px rgba(255,60,140,0.6), inset 0 3px 5px rgba(255,255,255,0.4);
 }
 
 /* Specific Proposal Buttons */
 .btn-yes {
-  background: linear-gradient(180deg, #b3f0ff, #00b3e6); /* Light Blue for contrast/hope */
+  background: linear-gradient(180deg, #b3f0ff, #00b3e6);
   box-shadow: 0 20px 60px rgba(0, 179, 230, 0.7), inset 0 3px 5px rgba(255,255,255,0.5);
   font-size: 24px; 
   padding: 18px 40px;
   font-weight: 900;
 }
 .btn-yes:hover {
-  transform: translateY(-5px); 
+  transform: translateY(-4px) rotateX(5deg); 
   box-shadow: 0 30px 80px rgba(0, 179, 230, 0.9), inset 0 3px 5px rgba(255,255,255,0.5);
 }
 .btn-no {
-    opacity: 0.8;
+    opacity: 0.9;
     background: linear-gradient(180deg, #5e003d, #42002b);
     box-shadow: none;
     padding: 12px 20px;
@@ -141,7 +141,7 @@ letter-spacing: 0.5px;
 }
 .btn-no:hover {
     transform: none;
-    box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    box-shadow: 0 0 12px rgba(255,255,255,0.15);
 }
 
 /* 40-language list */
@@ -157,7 +157,7 @@ margin-right:auto;
 color:#ffe7f3;
 font-size:16px;
 padding:15px;
-background: rgba(255,255,255,0.08);
+background: rgba(255,255,255,0.06); /* Lighter/more transparent background */
 border-radius:15px;
 }
 .langGrid > div {
@@ -170,25 +170,30 @@ border-radius:15px;
     to { opacity: 1; transform: none; }
 }
 
-/* poem box - FIX: Added missing visibility style */
+/* poem box */
 .poemBox{
 max-width:820px;
 margin:30px auto 20px;
 padding:25px 30px;
-border-radius:18px; /* Softer edges */
-background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,120,170,0.2));
+border-radius:18px; 
+background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,120,170,0.15));
 border:1px solid rgba(255,120,170,0.3);
 color:#ffdfe9;
 font-style:italic;
-font-size:20px; /* Slightly larger poem text */
+font-size:20px;
 box-shadow: 0 18px 45px rgba(255,60,140,0.3);
-display:none; /* Initial state */
+display:none;
 white-space: pre-wrap;
 text-align: center;
 line-height: 1.6;
 }
 .poemBox.show {
-    display: block; /* FIX: Makes the poem visible */
+    display: block;
+    animation: poemFadeIn 800ms ease forwards;
+}
+@keyframes poemFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 /* celebrate screen */
@@ -203,13 +208,38 @@ margin-bottom:25px;
 font-size: 22px;
 }
 
-/* confetti piece */
+/* -------- NEW/IMPROVED EFFECTS STYLES -------- */
+/* Floating Hearts */
+.heart, .petal, .star {
+    position: fixed;
+    top: 100vh; /* Start off-screen bottom */
+    z-index: 10;
+    opacity: 0; /* Managed by JS/animation */
+    pointer-events: none;
+    color: var(--soft-pink); /* Ensure emojis have color/shadow */
+    filter: drop-shadow(0 0 6px rgba(255,182,217,0.5));
+}
+/* New Smooth Animation for Hearts & Petals */
+@keyframes floatUpSmooth { 
+    0%   { transform: translate(0, 0) scale(0.8) rotate(0deg); opacity: 0; }
+    5%   { opacity: 1; }
+    50%  { transform: translate(var(--dx), -50vh) scale(1.1) rotate(var(--rot1)); opacity: 1; }
+    100% { transform: translate(var(--dx2), -110vh) scale(1.5) rotate(var(--rot2)); opacity: 0; }
+}
+
+/* Confetti */
 .confettiPiece {
     position: fixed;
     border-radius: 50%;
     opacity: 0.95;
     z-index: 40;
     animation: fall ease-in infinite;
+}
+/* Confetti Fall (added rotation) */
+@keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0.8; }
 }
 </style>
 
@@ -269,7 +299,6 @@ font-size: 22px;
     </div>    
   </div>  
 </div> 
-<img class="roseFloat" src="data:image:rose" alt="rose">  
 <audio id="proposalMusic" loop preload="auto">    
   <source src="https://files.catbox.moe/0p8z4m.mp3" type="audio/mpeg">    
 </audio>  
@@ -293,14 +322,13 @@ const poemBox   = document.getElementById('poemBox');
 const proposalMsg = document.getElementById('proposalMsg'); 
 const proposalMusic = document.getElementById('proposalMusic');    
 const celebrationMusic = document.getElementById('celebrationMusic');    
-// Removed musicToggleBtn as per request
 const fxRoot = document.getElementById('fxRoot');    
 let musicEnabled = false;
 let currentFrom = '';
 let currentTo = '';
 let poemVisible = false;
 
-/* 40 "I love you" translations (array of {lang, text}) */
+/* 40 "I love you" translations */
 const iLoveYou = [
 {lang:'English', text:'I love you'},
 {lang:'Hindi', text:'मैं तुमसे प्यार करता/करती हूँ'},
@@ -392,37 +420,55 @@ setTimeout(()=> spawnFloating('star'), i*80);
 }
 }
 
-/* spawn floating elements throughout page */
+/* spawn floating elements - IMPROVED FLOWING EFFECT */
 function spawnFloating(type){
 const el = document.createElement('div');
 el.className = type;
+// Use emojis for transparent effect
 if(type==='heart') el.innerHTML = ['💕','💗','💞'][Math.floor(Math.random()*3)];
 if(type==='star') el.innerHTML = '✦';
 if(type==='petal') el.innerHTML = '🌸';
+
+// Randomize start position
 el.style.left = Math.random()*window.innerWidth + 'px';
+// Randomize animation variables for smoother, non-repeating flow
+const dur = (type==='petal' ? (6+Math.random()*4) : (8+Math.random()*6)); // Longer duration
+const horizontalDrift = (Math.random() * 40 - 20) + 'vw'; // Drift up to 20vw left/right
+const finalDrift = (Math.random() * 40 - 20) + 'vw';
+const rot1 = (Math.random() * 30 - 15) + 'deg';
+const rot2 = (Math.random() * 60 - 30) + 'deg';
+
+el.style.setProperty('--dx', horizontalDrift);
+el.style.setProperty('--dx2', finalDrift);
+el.style.setProperty('--rot1', rot1);
+el.style.setProperty('--rot2', rot2);
+
 if(type==='petal') el.style.fontSize = (18 + Math.random()*26) + 'px';
-else if(type==='heart') el.style.fontSize = (18 + Math.random()*28) + 'px';
-else el.style.fontSize = (8 + Math.random()*14) + 'px';
-const dur = (type==='petal' ? (5+Math.random()*6) : (6+Math.random()*6));
+else if(type==='heart') el.style.fontSize = (20 + Math.random()*30) + 'px';
+else el.style.fontSize = (10 + Math.random()*16) + 'px';
+
+el.style.animationName = 'floatUpSmooth'; // Use the new smooth animation
 el.style.animationDuration = dur+'s';
+el.style.animationDelay = (-Math.random() * dur) + 's'; // Start some mid-flow
+
 document.body.appendChild(el);
-setTimeout(()=>el.remove(), (dur*1000)+300);
+setTimeout(()=>el.remove(), (dur*1000)+500);
 }
 
-/* continuous spawns (mix soft + intense over time) */
-setInterval(()=>spawnFloating('heart'), 500);
-setInterval(()=>spawnFloating('petal'), 700);
-setInterval(()=>spawnFloating('star'), 900);
+/* continuous spawns (faster for more flow) */
+setInterval(()=>spawnFloating('heart'), 300); // More hearts
+setInterval(()=>spawnFloating('petal'), 600);
+setInterval(()=>spawnFloating('star'), 800);
 
 /* --------------------- Build language grid - SLOW REVEAL --------------------- */
 function slowRevealLanguageGrid(){
     langGrid.innerHTML = '';
-    const delayBetweenItems = 120; // Slightly faster reveal
+    const delayBetweenItems = 120; 
 
     iLoveYou.forEach((it, idx) => {
         const node = document.createElement('div');
         node.innerHTML = `<strong>${idx+1}. ${escapeHtml(it.lang)}:</strong> ${escapeHtml(it.text)}`;
-        
+
         setTimeout(() => {
             langGrid.appendChild(node);
             node.style.animationDelay = '0s'; 
@@ -465,21 +511,17 @@ if(!f || !t){ alert('Please enter both names.'); return; }
 currentFrom = f; currentTo = t;
 setShareableURL(currentFrom, currentTo);
 
-// Start music on user click (gesture)
 startMusic();
 
-// Show Pre-Proposal Screen (s2)
 showScreen('s2');
 const topMsg = `𝐇ᴇʟʟᴏ, 𝐊ʏᴀ 𝐀ᴀᴘ 𝐘ʜᴀ 𝐂ʟɪᴄᴋ 𝐊ʀᴏɢɪ 𝐌ᴇʀᴇ 𝐋ɪʏᴇ 𝐏ʟs 💕`;
 typeWriter(topMsg, msgTop, 75);
 
-// render languages slowly
 slowRevealLanguageGrid();
 }
 
 function showProposalScreen(){
     showScreen('s2a');
-    // Stop proposal music gently, add suspense (optional)
     try { proposalMusic.pause(); } catch(e){}
 
     const finalMsg = proposalText(currentTo, currentFrom);
@@ -490,13 +532,12 @@ function showProposalScreen(){
 function goBackHome(){
 history.replaceState(null,'',location.pathname);
 currentFrom=''; currentTo='';
-// Stop all music when going back
 try { proposalMusic.pause(); celebrationMusic.pause(); } catch(e){}
 musicEnabled = false;
 showScreen('s1');
 }
 
-/* Poem toggle with typewriter and dramatic glow - FIX IMPLEMENTED */
+/* Poem toggle with typewriter and dramatic glow */
 function togglePoem(){
 if(poemVisible){
   poemVisible = false;
@@ -505,7 +546,6 @@ if(poemVisible){
 } else {
   poemVisible = true;
   poemBox.innerHTML = ''; 
-  // FIX: Class 'show' is now correctly added to make it visible
   poemBox.classList.add('show'); 
   smallBurst();
   typeWriter(poemText, poemBox, 90);
@@ -545,10 +585,8 @@ window.open(link, '_blank');
 
 /* --------------------- Celebration --------------------- */
 function showCelebrate(){
-// Stop proposal music gently
 try { proposalMusic.pause(); } catch(e){}
 
-// Attempt to play celebration music robustly 
 try { 
   celebrationMusic.currentTime = 0; 
   celebrationMusic.play().catch(e => {
@@ -557,9 +595,9 @@ try {
 } catch(e){}
 
 showScreen('s3');
-spawnConfetti(80);
-for(let i=0;i<30;i++) setTimeout(()=>spawnFloating('heart'), i*100);
-for(let i=0;i<25;i++){ setTimeout(()=>spawnBurstAtRandom(), i*80); }
+spawnConfetti(100); // More confetti
+for(let i=0;i<40;i++) setTimeout(()=>spawnFloating('heart'), i*80);
+for(let i=0;i<30;i++){ setTimeout(()=>spawnBurstAtRandom(), i*60); }
 }
 
 function resetAll(){
@@ -575,7 +613,7 @@ function spawnBurstAtRandom(){
   b.style.left = (Math.random()*window.innerWidth) + 'px';
   b.style.top  = (Math.random()*window.innerHeight*0.8) + 'px';
   b.style.color = `hsl(${320 + Math.random()*50},85%,70%)`;
-  b.style.fontSize = (20 + Math.random()*34) + 'px';
+  b.style.fontSize = (24 + Math.random()*38) + 'px';
   document.body.appendChild(b);
   setTimeout(()=> b.remove(), 1100);
 }
@@ -587,11 +625,12 @@ const c = document.createElement('div');
 c.className = 'confettiPiece';
 c.style.left = (Math.random()*100) + 'vw';
 c.style.top = (-10 - Math.random()*20) + 'vh';
-c.style.width = (6 + Math.random()*12) + 'px';
-c.style.height = (6 + Math.random()*12) + 'px';
-c.style.background = ['#ffd6ea','#ff77aa','#fff0f6','#ffdfe9', '#00b3e6'][Math.floor(Math.random()*5)];
-c.style.animationDuration = (3 + Math.random()*4) + 's';
-c.style.animationDelay = (Math.random()*2) + 's';
+c.style.width = (8 + Math.random()*14) + 'px';
+c.style.height = (8 + Math.random()*14) + 'px';
+// Brighter confetti colors
+c.style.background = ['#ff6f9f','#ff006e','#00b3e6','#ffffff'][Math.floor(Math.random()*4)];
+c.style.animationDuration = (4 + Math.random()*5) + 's';
+c.style.animationDelay = (Math.random()*3) + 's';
 document.body.appendChild(c);
 setTimeout(()=> c.remove(), 9000);
 }
@@ -608,7 +647,6 @@ const p = new URLSearchParams(location.search);
 const f = p.get('from'); const t = p.get('to');
 if(f) fromInput.value = f;
 if(t) toInput.value = t;
-// if both present, auto-generate after tiny delay (treated as gesture)
 if(f && t){ setTimeout(()=> generateProposal(), 350); }
 })();
 
