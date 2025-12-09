@@ -1,17 +1,3 @@
-That was a beautiful and complex interactive proposal app! You've done an excellent job, and the previous changes addressed the main music playback issues by correctly implementing user-gesture-based audio.
-The current code looks mostly solid and works as intended for the multi-step proposal. The main "issues" remaining are minor cosmetic tweaks and a small logic clean-up to ensure 100% functionality and a perfectly clean user experience.
-Here are the fixes and improvements applied to ensure a 100% functional, clean, and elegant interface:
- * Fixed Redundant Variable in HTML: The subtitle in the HTML uses ${currentFrom} and ${currentTo}, which are JavaScript variables. This causes a display error when the page first loads (before the JS runs).
-   * Fix: Changed the HTML subtitle back to static text, as the names are dynamically shown via the typewriter effect on the subsequent screens anyway.
- * Optimized "Can I think about it?" Button: Clicking "Can I think about it?" currently calls showProposalScreen() again, which restarts the typing effect.
-   * Fix: Changed the "Can I think about it?" button to call goBackHome(). This gives the user a clear exit/reset option, which is better for this context than just restarting the animation.
- * Removed Console Warnings for Music: Although the music logic is correct, the browser still throws a warning if it prevents a play() call.
-   * Fix: Added a .catch() block to the celebrationMusic.play() attempt inside showCelebrate() to cleanly handle the failure without polluting the console.
- * Interface Polish (CSS):
-   * Slightly adjusted the color palette variables for better readability and a softer feel.
-   * Made the proposalMsg font size slightly larger and bolder on the final screen for maximum dramatic effect.
-   * Ensured the "No" button (now the "think about it" button) is clearly a secondary, less-prominent choice.
-The full fixed code is below:
 <!doctype html>
 <html lang="en">    
 <head>    
@@ -175,7 +161,15 @@ border-radius:12px;
 }
 .langGrid > div {
   padding: 4px 0;
+  opacity: 0; /* Initially hidden for slow reveal */
+  animation: languageIn 400ms ease-out forwards;
 }
+/* New animation for language reveal */
+@keyframes languageIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: none; }
+}
+
 
 /* poem box */
 .poemBox{
@@ -310,7 +304,7 @@ const iLoveYou = [
 {lang:'Urdu', text:'میں تم سے محبت کرتا/کرتی ہوں'},
 {lang:'Bengali', text:'আমি তোমাকে ভালোবাসি'},
 {lang:'Gujarati', text:'હું તને પ્રેમ કરું છું'},
-{lang:'Marathi', text:'मी तुझ्यावर प्रेम करतो/કરતે'},
+{lang:'Marathi', text:'मी तुझ्यावर પ્રેમ करतो/કરતે'},
 {lang:'Tamil', text:'நான் உன்னை காதலிக்கிறேன்'},
 {lang:'Telugu', text:'నేను నిన్ను ప్రేమిస్తున్నాను'},
 {lang:'Kannada', text:'ನಾನು ನಿನ್ನನ್ನು ಪ್ರೀತಿಸುತ್ತೇನೆ'},
@@ -422,14 +416,22 @@ setInterval(()=>spawnFloating('heart'), 500);  // hearts
 setInterval(()=>spawnFloating('petal'), 700);  // petals
 setInterval(()=>spawnFloating('star'), 900);   // sparkles
 
-/* --------------------- Build language grid --------------------- */
-function renderLanguageGrid(){
-langGrid.innerHTML = '';
-iLoveYou.forEach((it, idx)=>{
-const node = document.createElement('div');
-node.innerHTML = `<strong>${idx+1}. ${escapeHtml(it.lang)}:</strong> ${escapeHtml(it.text)}`;
-langGrid.appendChild(node);
-});
+/* --------------------- Build language grid - SLOW REVEAL IMPLEMENTATION --------------------- */
+function slowRevealLanguageGrid(){
+    langGrid.innerHTML = ''; // Clear existing content
+    const delayBetweenItems = 150; // 150ms delay per language for the slow reveal
+
+    iLoveYou.forEach((it, idx) => {
+        const node = document.createElement('div');
+        node.innerHTML = `<strong>${idx+1}. ${escapeHtml(it.lang)}:</strong> ${escapeHtml(it.text)}`;
+        
+        // Use a timeout to append the node sequentially
+        setTimeout(() => {
+            langGrid.appendChild(node);
+            // Apply animation delay directly to the style attribute
+            node.style.animationDelay = '0s'; // Start animation immediately after append
+        }, idx * delayBetweenItems);
+    });
 }
 
 /* --------------------- Shareable link & URL handling --------------------- */
@@ -452,7 +454,7 @@ if(!musicEnabled){
   proposalMusic.play().then(() => {
     musicToggleBtn.textContent = '🔊 Music: On';
   }).catch(e => {
-    console.warn("Music play blocked:", e);
+    console.warn("Music play blocked:", e.name);
     musicEnabled = false; 
     musicToggleBtn.textContent = '🔈 Music: Off (Blocked)';
   });
@@ -480,7 +482,7 @@ if (!musicEnabled) {
   proposalMusic.play().then(() => {
     musicToggleBtn.textContent = '🔊 Music: On';
   }).catch(e => {
-    console.warn("Music play blocked:", e);
+    console.warn("Music play blocked:", e.name);
     musicEnabled = false;
     musicToggleBtn.textContent = '🔈 Music: Off';
   });
@@ -493,8 +495,8 @@ const topMsg = `𝐇ᴇʟʟᴏ, 𝐊ʏᴀ 𝐀ᴀᴘ 𝐘ʜᴀ 𝐂ʟɪᴄᴋ �
 // Slower typing speed (75ms) for dramatic reveal
 typeWriter(topMsg, msgTop, 75);
 
-// render languages
-renderLanguageGrid();
+// render languages slowly
+slowRevealLanguageGrid();
 }
 
 // Shows the final proposal screen
@@ -645,4 +647,3 @@ if(f && t){ setTimeout(()=> generateProposal(), 350); }
 
 </script>  </body>
 </html>
-
