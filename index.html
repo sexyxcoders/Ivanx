@@ -24,26 +24,26 @@ body{
   -webkit-font-smoothing:antialiased;    
   text-align:center;    
 }
-/* outer glow border - More diffuse and romantic, slightly thicker */  
+/* outer glow border - Softer glow */  
 body::before{  
 content:"";  
 position:fixed;  
-inset:3px;
+inset:5px; /* Slightly wider inset for drama */
 border-radius:22px;
-box-shadow: 0 0 160px rgba(255,100,170,0.7); /* Stronger, softer glow */
+box-shadow: 0 0 120px rgba(255,100,170,0.5); /* Softer, less intense glow */
 pointer-events:none;  
 }  
-/* container - Enhanced Glassmorphism Effect for better clarity */
+/* container - Enhanced Glassmorphism Effect for maximum transparency and clarity */
 .container{
 width:94%;
 max-width:900px;
 margin:40px auto;
 padding:30px 24px;
 border-radius:25px;
-background: rgba(255, 182, 217, 0.04); /* Reduced opacity for clarity */
-border: 1px solid rgba(255, 255, 255, 0.1); 
-backdrop-filter: blur(25px) saturate(200%); /* Increased blur */
-box-shadow: 0 40px 90px rgba(0,0,0,0.6); /* Deeper shadow */
+background: rgba(255, 182, 217, 0.02); /* Very low opacity for maximum transparency */
+border: 1px solid rgba(255, 255, 255, 0.08); /* Fainter border */
+backdrop-filter: blur(30px) saturate(200%); /* Increased blur for frosted look */
+box-shadow: 0 30px 80px rgba(0,0,0,0.4); /* Softer shadow */
 }
 
 /* headings */
@@ -51,7 +51,7 @@ box-shadow: 0 40px 90px rgba(0,0,0,0.6); /* Deeper shadow */
 font-size:32px; 
 color:var(--text-light);
 margin-bottom:6px;
-text-shadow: 0 12px 40px rgba(255,80,150,0.6); 
+text-shadow: 0 8px 30px rgba(255,80,150,0.4); /* Reduced glow intensity */
 font-weight: 900;
 letter-spacing: 1px;
 }
@@ -63,7 +63,10 @@ font-size: 15px;
 
 /* screens */
 .screen{ display:none; padding:10px; }
-.screen.active{ display:block; animation: screenIn 600ms ease; }
+.screen.active{ 
+  display:block; 
+  animation: screenIn 1000ms ease; /* Slower screen transition */
+}
 @keyframes screenIn{ from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:none} }
 
 /* typewriter */
@@ -76,7 +79,7 @@ white-space:pre-wrap;
 border-right: 4px solid var(--rich-pink); 
 padding-right:8px;
 margin-bottom:20px;
-text-shadow: 0 0 14px rgba(255,182,217,1); /* Very strong glow */
+text-shadow: 0 0 10px rgba(255,182,217,0.7); /* Softer glow */
 }
 
 /* inputs & buttons */
@@ -85,8 +88,8 @@ input[type="text"]{
 width:260px;
 padding:14px 18px;
 border-radius:14px;
-border:2px solid rgba(255,120,170,0.5);
-background: rgba(255,255,255,0.15); /* Slightly clearer background */
+border:2px solid rgba(255,120,170,0.4); /* Softer border */
+background: rgba(255,255,255,0.08); /* More transparent input */
 color:var(--text-light);
 font-size:17px;
 transition: border-color .3s, box-shadow .3s;
@@ -95,7 +98,7 @@ font-weight: 500;
 input[type="text"]:focus {
   border-color: var(--accent-pink);
   outline: none;
-  box-shadow: 0 0 15px var(--accent-pink);
+  box-shadow: 0 0 12px var(--accent-pink);
 }
 .btn{
 appearance:none;
@@ -106,42 +109,38 @@ font-size:17px;
 cursor:pointer;
 color:var(--text-light);
 background: linear-gradient(180deg, var(--rich-pink), var(--accent-pink));
-box-shadow: 0 10px 35px rgba(255,80,150,0.5), inset 0 3px 5px rgba(255,255,255,0.4);
-transition: transform .2s ease, box-shadow .2s ease;
+box-shadow: 0 8px 25px rgba(255,80,150,0.4), inset 0 3px 5px rgba(255,255,255,0.4); /* Softer shadow */
+transition: transform .3s ease, box-shadow .3s ease; /* Slower hover transition */
 font-weight: 600;
 letter-spacing: 0.5px;
 }
 .btn:active{ 
-  transform: translateY(1px); /* Smoother press */
-  box-shadow: 0 5px 15px rgba(255,60,140,0.4), inset 0 1px 2px rgba(0,0,0,0.3);
+  transform: translateY(1px); 
+  box-shadow: 0 4px 10px rgba(255,60,140,0.3), inset 0 1px 2px rgba(0,0,0,0.3);
 }
 .btn:hover{ 
-  transform: translateY(-2px) rotateX(5deg); /* Subtle 3D tilt on hover */
-  box-shadow: 0 20px 50px rgba(255,60,140,0.6), inset 0 3px 5px rgba(255,255,255,0.4);
+  transform: translateY(-2px) rotateX(2deg); /* Less aggressive 3D tilt */
+  box-shadow: 0 15px 40px rgba(255,60,140,0.5), inset 0 3px 5px rgba(255,255,255,0.4);
 }
 
-/* Specific Proposal Buttons */
+/* Specific Proposal Buttons (also softened) */
 .btn-yes {
   background: linear-gradient(180deg, #b3f0ff, #00b3e6);
-  box-shadow: 0 20px 60px rgba(0, 179, 230, 0.7), inset 0 3px 5px rgba(255,255,255,0.5);
+  box-shadow: 0 15px 45px rgba(0, 179, 230, 0.5), inset 0 3px 5px rgba(255,255,255,0.5);
   font-size: 24px; 
   padding: 18px 40px;
   font-weight: 900;
 }
 .btn-yes:hover {
-  transform: translateY(-4px) rotateX(5deg); 
-  box-shadow: 0 30px 80px rgba(0, 179, 230, 0.9), inset 0 3px 5px rgba(255,255,255,0.5);
+  transform: translateY(-3px) rotateX(2deg); 
+  box-shadow: 0 25px 60px rgba(0, 179, 230, 0.7), inset 0 3px 5px rgba(255,255,255,0.5);
 }
 .btn-no {
-    opacity: 0.9;
+    opacity: 0.7; /* More transparent */
     background: linear-gradient(180deg, #5e003d, #42002b);
     box-shadow: none;
     padding: 12px 20px;
     font-size: 15px;
-}
-.btn-no:hover {
-    transform: none;
-    box-shadow: 0 0 12px rgba(255,255,255,0.15);
 }
 
 /* 40-language list */
@@ -157,16 +156,16 @@ margin-right:auto;
 color:#ffe7f3;
 font-size:16px;
 padding:15px;
-background: rgba(255,255,255,0.06); /* Lighter/more transparent background */
+background: rgba(255,255,255,0.04); /* Very transparent */
 border-radius:15px;
 }
 .langGrid > div {
   padding: 4px 0;
   opacity: 0;
-  animation: languageIn 400ms ease-out forwards;
+  animation: languageIn 800ms ease-out forwards; /* Slower reveal */
 }
 @keyframes languageIn {
-    from { opacity: 0; transform: translateX(-10px); }
+    from { opacity: 0; transform: translateX(-15px); }
     to { opacity: 1; transform: none; }
 }
 
@@ -176,12 +175,12 @@ max-width:820px;
 margin:30px auto 20px;
 padding:25px 30px;
 border-radius:18px; 
-background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,120,170,0.15));
-border:1px solid rgba(255,120,170,0.3);
+background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,120,170,0.1)); /* Very transparent */
+border:1px solid rgba(255,120,170,0.2);
 color:#ffdfe9;
 font-style:italic;
 font-size:20px;
-box-shadow: 0 18px 45px rgba(255,60,140,0.3);
+box-shadow: 0 15px 35px rgba(255,60,140,0.2);
 display:none;
 white-space: pre-wrap;
 text-align: center;
@@ -189,45 +188,34 @@ line-height: 1.6;
 }
 .poemBox.show {
     display: block;
-    animation: poemFadeIn 800ms ease forwards;
+    animation: poemFadeIn 1200ms ease forwards; /* Slower fade in */
 }
 @keyframes poemFadeIn {
-    from { opacity: 0; transform: scale(0.95); }
+    from { opacity: 0; transform: scale(0.98); }
     to { opacity: 1; transform: scale(1); }
 }
 
-/* celebrate screen */
-.celebrate .big{
-font-size:64px; 
-color:var(--text-light);
-text-shadow: 0 20px 60px rgba(255,80,160,0.6);
-}
-.celebrate .sub{
-color:#ffdfe9;
-margin-bottom:25px;
-font-size: 22px;
-}
 
-/* -------- NEW/IMPROVED EFFECTS STYLES -------- */
-/* Floating Hearts */
+/* Floating Hearts - Smoother, Slower */
 .heart, .petal, .star {
     position: fixed;
-    top: 100vh; /* Start off-screen bottom */
+    top: 100vh; 
     z-index: 10;
-    opacity: 0; /* Managed by JS/animation */
+    opacity: 0; 
     pointer-events: none;
-    color: var(--soft-pink); /* Ensure emojis have color/shadow */
-    filter: drop-shadow(0 0 6px rgba(255,182,217,0.5));
+    color: var(--soft-pink); 
+    filter: drop-shadow(0 0 4px rgba(255,182,217,0.4)); /* Softer glow */
+    animation-timing-function: linear !important; /* Constant speed */
 }
-/* New Smooth Animation for Hearts & Petals */
+/* New Smooth Animation for Hearts & Petals - MUCH LONGER DURATION */
 @keyframes floatUpSmooth { 
-    0%   { transform: translate(0, 0) scale(0.8) rotate(0deg); opacity: 0; }
-    5%   { opacity: 1; }
-    50%  { transform: translate(var(--dx), -50vh) scale(1.1) rotate(var(--rot1)); opacity: 1; }
-    100% { transform: translate(var(--dx2), -110vh) scale(1.5) rotate(var(--rot2)); opacity: 0; }
+    0%   { transform: translate(0, 0) scale(0.7) rotate(0deg); opacity: 0; }
+    5%   { opacity: 0.9; } /* Stay mostly opaque during rise */
+    50%  { transform: translate(var(--dx), -50vh) scale(1.0) rotate(var(--rot1)); opacity: 0.9; }
+    100% { transform: translate(var(--dx2), -110vh) scale(1.2) rotate(var(--rot2)); opacity: 0; }
 }
 
-/* Confetti */
+/* Confetti - Slower, Drifting Fall */
 .confettiPiece {
     position: fixed;
     border-radius: 50%;
@@ -235,11 +223,11 @@ font-size: 22px;
     z-index: 40;
     animation: fall ease-in infinite;
 }
-/* Confetti Fall (added rotation) */
+/* Confetti Fall (added rotation) - LONGER DURATION */
 @keyframes fall {
     0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-    10% { opacity: 1; }
-    100% { transform: translateY(110vh) rotate(720deg); opacity: 0.8; }
+    5% { opacity: 0.9; }
+    100% { transform: translateY(110vh) rotate(540deg); opacity: 0.6; } /* Slower rotation, more fade */
 }
 </style>
 
@@ -432,8 +420,8 @@ if(type==='petal') el.innerHTML = '🌸';
 // Randomize start position
 el.style.left = Math.random()*window.innerWidth + 'px';
 // Randomize animation variables for smoother, non-repeating flow
-const dur = (type==='petal' ? (6+Math.random()*4) : (8+Math.random()*6)); // Longer duration
-const horizontalDrift = (Math.random() * 40 - 20) + 'vw'; // Drift up to 20vw left/right
+const dur = (type==='petal' ? (15+Math.random()*10) : (18+Math.random()*7)); // Increased duration: 15-25s
+const horizontalDrift = (Math.random() * 40 - 20) + 'vw'; 
 const finalDrift = (Math.random() * 40 - 20) + 'vw';
 const rot1 = (Math.random() * 30 - 15) + 'deg';
 const rot2 = (Math.random() * 60 - 30) + 'deg';
@@ -447,23 +435,23 @@ if(type==='petal') el.style.fontSize = (18 + Math.random()*26) + 'px';
 else if(type==='heart') el.style.fontSize = (20 + Math.random()*30) + 'px';
 else el.style.fontSize = (10 + Math.random()*16) + 'px';
 
-el.style.animationName = 'floatUpSmooth'; // Use the new smooth animation
+el.style.animationName = 'floatUpSmooth'; 
 el.style.animationDuration = dur+'s';
-el.style.animationDelay = (-Math.random() * dur) + 's'; // Start some mid-flow
+el.style.animationDelay = (-Math.random() * dur) + 's'; 
 
 document.body.appendChild(el);
 setTimeout(()=>el.remove(), (dur*1000)+500);
 }
 
-/* continuous spawns (faster for more flow) */
-setInterval(()=>spawnFloating('heart'), 300); // More hearts
-setInterval(()=>spawnFloating('petal'), 600);
-setInterval(()=>spawnFloating('star'), 800);
+/* continuous spawns (slower for softer flow) */
+setInterval(()=>spawnFloating('heart'), 600); // Reduced heart spawn rate
+setInterval(()=>spawnFloating('petal'), 1200); // Reduced petal spawn rate
+setInterval(()=>spawnFloating('star'), 1600); // Reduced star spawn rate
 
 /* --------------------- Build language grid - SLOW REVEAL --------------------- */
 function slowRevealLanguageGrid(){
     langGrid.innerHTML = '';
-    const delayBetweenItems = 120; 
+    const delayBetweenItems = 200; // Slower reveal
 
     iLoveYou.forEach((it, idx) => {
         const node = document.createElement('div');
@@ -515,7 +503,7 @@ startMusic();
 
 showScreen('s2');
 const topMsg = `𝐇ᴇʟʟᴏ, 𝐊ʏᴀ 𝐀ᴀᴘ 𝐘ʜᴀ 𝐂ʟɪᴄᴋ 𝐊ʀᴏɢɪ 𝐌ᴇʀᴇ 𝐋ɪʏᴇ 𝐏ʟs 💕`;
-typeWriter(topMsg, msgTop, 75);
+typeWriter(topMsg, msgTop, 100); // Slower typewriter speed
 
 slowRevealLanguageGrid();
 }
@@ -525,7 +513,7 @@ function showProposalScreen(){
     try { proposalMusic.pause(); } catch(e){}
 
     const finalMsg = proposalText(currentTo, currentFrom);
-    typeWriter(finalMsg, proposalMsg, 100);
+    typeWriter(finalMsg, proposalMsg, 120); // Slower typewriter speed
 }
 
 
@@ -548,7 +536,7 @@ if(poemVisible){
   poemBox.innerHTML = ''; 
   poemBox.classList.add('show'); 
   smallBurst();
-  typeWriter(poemText, poemBox, 90);
+  typeWriter(poemText, poemBox, 100); // Slower typewriter speed
   try { proposalMusic.volume = 0.9; setTimeout(()=>proposalMusic.volume = 1.0, 1200); } catch(e){}
 }
 }
@@ -595,9 +583,9 @@ try {
 } catch(e){}
 
 showScreen('s3');
-spawnConfetti(100); // More confetti
-for(let i=0;i<40;i++) setTimeout(()=>spawnFloating('heart'), i*80);
-for(let i=0;i<30;i++){ setTimeout(()=>spawnBurstAtRandom(), i*60); }
+spawnConfetti(80); // Slightly less confetti
+for(let i=0;i<30;i++) setTimeout(()=>spawnFloating('heart'), i*150); // Slower burst
+for(let i=0;i<20;i++){ setTimeout(()=>spawnBurstAtRandom(), i*100); } // Slower burst
 }
 
 function resetAll(){
@@ -627,12 +615,11 @@ c.style.left = (Math.random()*100) + 'vw';
 c.style.top = (-10 - Math.random()*20) + 'vh';
 c.style.width = (8 + Math.random()*14) + 'px';
 c.style.height = (8 + Math.random()*14) + 'px';
-// Brighter confetti colors
 c.style.background = ['#ff6f9f','#ff006e','#00b3e6','#ffffff'][Math.floor(Math.random()*4)];
-c.style.animationDuration = (4 + Math.random()*5) + 's';
-c.style.animationDelay = (Math.random()*3) + 's';
+c.style.animationDuration = (8 + Math.random()*6) + 's'; // Slower fall time
+c.style.animationDelay = (Math.random()*4) + 's';
 document.body.appendChild(c);
-setTimeout(()=> c.remove(), 9000);
+setTimeout(()=> c.remove(), 15000);
 }
 }
 
