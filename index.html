@@ -3,17 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>💍 Pink Proposal — Shareable & Romantic Celebration</title>
+<title>💍 Pink Proposal — 40 Languages + Romantic Celebration</title>
 
 <style>
-/* ---------------- GLOBAL THEME & BG ANIMATION ---------------- */
 :root{
   --pink-1:#ffdee9;
   --pink-2:#ffb6d9;
   --accent:#ff4fa3;
   --dark:#2b0018;
 }
-
 *{box-sizing:border-box}
 body{
   margin:0;
@@ -25,8 +23,6 @@ body{
   animation: bgShift 12s infinite alternate ease-in-out;
   text-align:center;
 }
-
-/* subtle rounded glowing page border */
 body::before{
   content:"";
   position:fixed;
@@ -35,15 +31,11 @@ body::before{
   box-shadow: 0 0 30px rgba(255,80,150,0.25);
   pointer-events:none;
 }
-
-/* background animation */
 @keyframes bgShift{
   0%{filter: hue-rotate(0deg) brightness(0.95)}
   50%{filter: hue-rotate(8deg) brightness(1.05)}
   100%{filter: hue-rotate(-6deg) brightness(1)}
 }
-
-/* page containers */
 .container{
   width:92%;
   max-width:920px;
@@ -53,13 +45,10 @@ body::before{
   backdrop-filter: blur(6px);
   position:relative;
 }
-
-/* screens */
 .screen{ display:none; padding:6px; }
 .screen.active{ display:block; animation: screenIn 550ms ease; }
 @keyframes screenIn{ from{opacity:0; transform: translateY(18px)} to{opacity:1; transform:none} }
 
-/* headings & typewriter */
 .heading{
   font-size:20px;
   color:var(--pink-2);
@@ -77,8 +66,6 @@ body::before{
   padding-right:6px;
   margin-bottom:16px;
 }
-
-/* inputs & buttons */
 .inputs{ margin:18px 0; }
 input[type="text"]{
   width:240px;
@@ -106,7 +93,6 @@ input[type="text"]{
 .btn:active{ transform: translateY(2px); }
 .btn:hover{ transform: translateY(-3px); box-shadow: 0 14px 32px rgba(255,60,140,0.28); }
 
-/* small controls row */
 .controls{
   margin-top:14px;
   display:flex;
@@ -114,8 +100,6 @@ input[type="text"]{
   justify-content:center;
   flex-wrap:wrap;
 }
-
-/* love meter */
 .loveCount{
   font-size:42px;
   font-weight:800;
@@ -123,11 +107,9 @@ input[type="text"]{
   text-shadow: 0 0 24px rgba(255,60,140,0.3);
   margin:12px 0;
 }
-
-/* multi-language list */
 .langList{ text-align:left; margin:18px auto; max-width:720px; color:#ffdfe9; }
 
-/* effect elements (hearts, stars, petals) */
+/* effects */
 .heart, .star, .petal {
   position:fixed;
   pointer-events:none;
@@ -136,20 +118,15 @@ input[type="text"]{
 }
 .heart{ animation: floatUp 6s linear infinite; color:#ff77aa; font-size:22px; opacity:0.92; }
 @keyframes floatUp { 0%{transform:translateY(0) rotate(0)} 100%{transform:translateY(-110vh) rotate(45deg); opacity:0} }
-
 .star{ animation: starFloat 9s linear infinite; color:#ffd6f0; font-size:12px; opacity:0.8; }
 @keyframes starFloat { 0%{transform:translateY(0) scale(0.9)} 100%{transform:translateY(-100vh) scale(1.2); opacity:0} }
-
 .petal{ animation: petalFall linear infinite; font-size:26px; opacity:0.95; }
 @keyframes petalFall { 0%{transform:translateY(-10px) rotate(0)} 100%{transform:translateY(110vh) rotate(360deg); opacity:0} }
-
-/* click heart trail */
 .clickHeart{
   position:fixed; transform:translate(-50%,-50%); animation: clickUp 900ms ease forwards; font-size:20px; z-index:6;
 }
 @keyframes clickUp{ 0%{transform:translate(-50%,-50%) translateY(0) scale(1); opacity:1} 100%{transform:translate(-50%,-50%) translateY(-80px) scale(1.6); opacity:0} }
 
-/* burst hearts on YES */
 .burstHeart{
   position:absolute;
   transform-origin:center;
@@ -162,8 +139,6 @@ input[type="text"]{
   60%{opacity:1; transform:scale(1.05) translateY(-40px)}
   100%{opacity:0; transform:scale(1.6) translateY(-120px)}
 }
-
-/* soft confetti (celebration) */
 .confettiPiece{
   position:fixed;
   width:10px; height:14px; z-index:9;
@@ -174,8 +149,6 @@ input[type="text"]{
   0%{transform:translateY(-10vh) rotate(0); opacity:1}
   100%{transform:translateY(110vh) rotate(720deg); opacity:0}
 }
-
-/* celebration screen styling (Option B: Romantic) */
 .celebrate{
   padding:28px;
   border-radius:16px;
@@ -193,15 +166,24 @@ input[type="text"]{
   color:#ffdff0;
   margin-top:6px;
 }
-
-/* subtle floating rose image */
 .roseFloat{
   position:fixed; right:10px; bottom:10px; opacity:0.12; width:140px; transform:rotate(-8deg);
   filter: drop-shadow(0 10px 20px rgba(255,60,140,0.06));
   z-index:1; pointer-events:none;
 }
-
-/* small responsive */
+.poemBox{
+  margin:18px auto;
+  max-width:820px;
+  color:#ffdfe9;
+  font-size:18px;
+  line-height:1.5;
+  background: rgba(255,255,255,0.02);
+  padding:14px;
+  border-radius:10px;
+  box-shadow: inset 0 0 18px rgba(255,80,150,0.02);
+  text-align:center;
+  font-style:italic;
+}
 @media (max-width:520px){
   .typewriter{ font-size:20px; border-right:2px solid rgba(255,140,190,0.8) }
   .bigText{ font-size:34px }
@@ -211,18 +193,14 @@ input[type="text"]{
 </head>
 <body>
 
-<!-- container -->
 <div class="container">
-
-  <!-- Header -->
   <div style="margin-bottom:6px">
-    <div class="heading">💖 Romantic Proposal Generator — Share & Celebrate 💖</div>
+    <div class="heading">💖 Romantic Proposal Generator — 40 Languages & Celebration 💖</div>
   </div>
 
-  <!-- SCREEN 1: Name input -->
+  <!-- SCREEN 1 -->
   <div id="screen1" class="screen active">
     <div class="typewriter">Enter details to create a personalized proposal</div>
-
     <div class="inputs" style="margin-top:12px">
       <input id="fromInput" type="text" placeholder="Your Name (e.g. Ivan)">
       <input id="toInput" type="text" placeholder="Partner Name (e.g. Riya)">
@@ -234,12 +212,12 @@ input[type="text"]{
     </div>
 
     <div class="controls" style="margin-top:10px">
-      <button class="btn" onclick="playBgm()">⏯ Play/Pause Music</button>
+      <button class="btn" id="musicToggle" onclick="toggleMusic()">🔈 Music: Off</button>
       <button class="btn" onclick="copyCurrentURL()">🔗 Copy Current Link</button>
     </div>
   </div>
 
-  <!-- SCREEN 2: First message (typewriter) -->
+  <!-- SCREEN 2 -->
   <div id="screen2" class="screen">
     <div id="type1" class="typewriter"></div>
     <div style="margin-top:18px">
@@ -248,7 +226,7 @@ input[type="text"]{
     </div>
   </div>
 
-  <!-- SCREEN 3: Second message (typewriter) -->
+  <!-- SCREEN 3 -->
   <div id="screen3" class="screen">
     <div id="type2" class="typewriter"></div>
     <div style="margin-top:18px">
@@ -257,7 +235,7 @@ input[type="text"]{
     </div>
   </div>
 
-  <!-- SCREEN 4: Final before celebration (shows love meter and share) -->
+  <!-- SCREEN 4 -->
   <div id="screen4" class="screen">
     <div class="loveCount" id="loveCounter">0 ❤️</div>
 
@@ -265,6 +243,7 @@ input[type="text"]{
       <button class="btn" onclick="showCelebrate()">Celebrate!</button>
       <button class="btn" id="waShareBtn" onclick="shareWhatsApp()">Share on WhatsApp</button>
       <button class="btn" onclick="copyProposalLink()">Copy Proposal Link</button>
+      <button class="btn" onclick="showScreen('screenLang')">View 40 Languages</button>
     </div>
 
     <div style="margin-top:14px; font-size:14px; color:#ffdfe9">
@@ -272,11 +251,17 @@ input[type="text"]{
     </div>
   </div>
 
-  <!-- SCREEN 5: Celebration (Option B: Romantic Scene) -->
+  <!-- SCREEN 5: Celebration (Option B) -->
   <div id="screen5" class="screen celebrate" style="display:none">
     <img class="roseFloat" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><text x='0' y='120' font-size='120'>🌹</text></svg>" alt="rose"/>
     <div class="bigText" id="celebrateTitle">She Said YES 💍💖</div>
     <div class="subText" id="celebrateSub">A new chapter begins — love, laughter & forever.</div>
+
+    <!-- POEM inserted here as requested (on final celebration page) -->
+    <div class="poemBox" id="poemBox">
+      <div style="font-weight:700; margin-bottom:6px; color:#ffcce3">A line from the heart</div>
+      <div id="poemText">Tum chhodo bhii kuchh kehne ko..<br>Mein kehta huu mujhe kehne do..<br>Ek-tarfa ishq hii behtar hai..<br>Mai krta huu tum rehne do..</div>
+    </div>
 
     <div style="margin:18px 0;">
       <button class="btn" onclick="downloadScreenshot()">💾 Save Screenshot</button>
@@ -285,54 +270,71 @@ input[type="text"]{
     </div>
   </div>
 
-  <!-- language list screen (optional) -->
+  <!-- SCREEN LANG: 40 languages -->
   <div id="screenLang" class="screen">
-    <div class="heading">💗 20-Language Proposals</div>
+    <div class="heading">💗 40-Language Proposals</div>
     <div class="langList">
-      ❤️ English: Will you marry me?<br>
-      💕 Hindi: Kya tum mujhse shaadi karogi?<br>
-      💗 Urdu: Kya tum mujhse nikah karogi?<br>
-      💞 Marathi: Tu majhshi lagna karshil ka?<br>
-      💘 Bengali: তুমি কি আমাকে বিয়ে করবে?<br>
-      💓 Tamil: என்னை திருமணம் செய்துக்குவாயா?<br>
-      💖 Telugu: నన్ను వివాహం చేసుకుంటావా?<br>
-      💝 Kannada: ನೀನು ನನ್ನ ಜೊತೆ ಮದುವೆಯಾಗುತ್ತೀಯಾ?<br>
-      💗 Gujarati: શું તમે મારી સાથે લગ્ન કરશો?<br>
-      💘 Punjabi: ਕੀ ਤੁਸੀਂ ਮੇਰੇ ਨਾਲ ਵਿਆਹ ਕਰੋਂਗੇ?<br>
-      ❤️ Spanish: ¿Te casarías conmigo?<br>
-      💕 French: Veux-tu m’épouser?<br>
-      💖 Arabic: هل تتزوجينني؟<br>
-      💞 Turkish: Benimle evlenir misin?<br>
-      💘 Japanese: 私と結婚してくれますか？<br>
-      💝 Korean: 나랑 결혼해 줄래?<br>
-      💓 Chinese: 你愿意嫁给我吗？<br>
-      💗 Russian: Ты выйдешь за меня?<br>
-      💖 Italian: Vuoi sposarmi?<br>
-      💕 German: Willst du mich heiraten?<br>
+      1. English: Will you marry me?<br>
+      2. Hindi: क्या तुम मुझसे शादी करोगी?<br>
+      3. Urdu: کیا تم مجھ سے شادی کرو گی؟<br>
+      4. Bengali: তুমি কি আমাকে বিয়ে করবে?<br>
+      5. Gujarati: શું તમે મારી સાથે લગ્ન કરશો?<br>
+      6. Marathi: तू माझ्याशी लग्न करशील का?<br>
+      7. Tamil: என்னுடன் திருமணம் செய்கிறதா?<br>
+      8. Telugu: నాతో వివాహం చేసుకుంటావా?<br>
+      9. Kannada: ನಿನ್ನೊಡನೆ ಮದುವೆಯಾಗುತ್ತೀಯಾ?<br>
+      10. Malayalam: നീ എന്നോട് വിവാഹം ചെയ്യുമോ?<br>
+      11. Punjabi: ਕੀ ਤੁਸੀਂ ਮੇਰੇ ਨਾਲ ਵਿਆਹ ਕਰੋਗੇ?<br>
+      12. Nepali: के तिमी मेरो विवाह गर्नेछौ?<br>
+      13. Sinhala: ඔබ මාව විවාහ කරමුද?<br>
+      14. Arabic: هل تقبل/ين الزواج بي؟<br>
+      15. Turkish: Benimle evlenir misin?<br>
+      16. French: Veux-tu m’épouser ?<br>
+      17. Spanish: ¿Te casarías conmigo?<br>
+      18. German: Willst du mich heiraten?<br>
+      19. Italian: Vuoi sposarmi?<br>
+      20. Filipino (Tagalog): Pakakasalan mo ba ako?<br>
+      21. Indonesian: Mau menikah denganku?<br>
+      22. Thai: คุณจะแต่งงานกับฉันไหม?<br>
+      23. Burmese: မင်းကကျွန်တော့်နဲ့လက်ထပ်ချင်ဘူးလား?<br>
+      24. Korean: 나와 결혼해 줄래요?<br>
+      25. Japanese: 私と結婚してくれますか？<br>
+      26. Chinese (Mandarin): 你愿意嫁给我吗？/你愿意娶我吗？<br>
+      27. Russian: выйдешь за меня замуж?<br>
+      28. Portuguese: Você quer se casar comigo?<br>
+      29. Vietnamese: Em có lấy anh không?<br>
+      30. Persian (Farsi): آیا با من ازدواج می‌کنی؟<br>
+      31. Hebrew: האם תתחתני איתי?<br>
+      32. Swahili: Utaniolewa nami?<br>
+      33. Polish: Czy wyjdziesz za mnie?<br>
+      34. Dutch: Wil je met me trouwen?<br>
+      35. Greek: Θες να με παντρευτείς;<br>
+      36. Romanian: Vrei să te căsătorești cu mine?<br>
+      37. Czech: Vezmeš si mě?<br>
+      38. Hungarian: Hozzám jössz feleségül?<br>
+      39. Malay: Mahukah kamu berkahwin denganku?<br>
+      40. Bulgarian: Ще се омъжиш ли за мен?<br>
     </div>
     <div style="margin-top:12px"><button class="btn" onclick="showScreen('screen1')">⟵ Back Home</button></div>
   </div>
 
 </div> <!-- /container -->
 
-<!-- Soft background music for proposal -->
-<audio id="proposalMusic" loop>
-  <!-- Replace src with your hosted "Tu Maan Meri Jaan" file if you have it.
-       This sample link is a placeholder — hosting copyrighted music yourself is your responsibility. -->
+<!-- AUDIO: Proposal music (Tu Maan Meri Jaan placeholder) -->
+<audio id="proposalMusic" loop preload="auto">
+  <!-- Replace with your hosted file if you have the song -->
   <source src="https://files.catbox.moe/0p8z4m.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Celebration music (soft slow love) -->
-<audio id="celebrationMusic" loop>
-  <!-- Another sample placeholder audio — replace if you host your chosen song. -->
+<!-- AUDIO: Celebration music (soft slow love) -->
+<audio id="celebrationMusic" loop preload="auto">
   <source src="https://files.catbox.moe/1j3k9p.mp3" type="audio/mpeg">
 </audio>
 
-<!-- tiny helper area for dynamic elements -->
 <div id="fxRoot"></div>
 
 <script>
-/* ------------------ Utilities & Globals ------------------ */
+/* Globals */
 const screens = {
   s1: document.getElementById('screen1'),
   s2: document.getElementById('screen2'),
@@ -345,23 +347,30 @@ const fromInp = document.getElementById('fromInput');
 const toInp = document.getElementById('toInput');
 const proposalMusic = document.getElementById('proposalMusic');
 const celebrationMusic = document.getElementById('celebrationMusic');
-const fxRoot = document.getElementById('fxRoot');
+const musicToggleBtn = document.getElementById('musicToggle');
+let musicOn = false;
 let currentFrom = '';
 let currentTo = '';
 
-/* Auto-play attempt (browsers may mute until user interacts) */
-function playBgm(){
-  if(proposalMusic.paused) proposalMusic.play().catch(()=>{});
-  else proposalMusic.pause();
+/* Play / Pause music controlled by user */
+function toggleMusic(){
+  musicOn = !musicOn;
+  if(musicOn){
+    proposalMusic.play().catch(()=>{});
+    musicToggleBtn.textContent = '🔊 Music: On';
+  } else {
+    proposalMusic.pause();
+    musicToggleBtn.textContent = '🔈 Music: Off';
+  }
 }
 
-/* Pre-fill example */
+/* Pre-fill sample */
 function fillExample(){
   fromInp.value = 'Ivan';
   toInp.value = 'Riya';
 }
 
-/* Simple showScreen */
+/* show screen helper */
 function showScreen(id){
   Object.values(screens).forEach(el=>el.classList.remove('active'));
   if(id==='screen1') screens.s1.classList.add('active');
@@ -372,14 +381,13 @@ function showScreen(id){
   if(id==='screenLang') screens.sl.classList.add('active');
 }
 
-/* ------------------ Floating effects (hearts, stars, petals) ------------------ */
+/* floating effects */
 function spawnFloating(type){
   const el = document.createElement('div');
   el.className = type;
   if(type==='heart') el.innerHTML='💕';
   if(type==='star') el.innerHTML='✦';
   if(type==='petal') el.innerHTML='🌸';
-  // random position & size & duration
   const left = Math.random()*window.innerWidth;
   el.style.left = left + 'px';
   const size = (type==='star'? (8+Math.random()*12) : (16+Math.random()*26));
@@ -389,15 +397,12 @@ function spawnFloating(type){
   document.body.appendChild(el);
   setTimeout(()=> el.remove(), (dur*1000)+200);
 }
-
-// continuous spawners
 setInterval(()=>spawnFloating('heart'), 450);
 setInterval(()=>spawnFloating('star'), 700);
 setInterval(()=>spawnFloating('petal'), 650);
 
-/* ------------------ Click heart trail ------------------ */
+/* click heart trail */
 document.addEventListener('click', (ev)=>{
-  // small particle on clicks (not interfering with buttons)
   if(ev.target.tagName.toLowerCase() === 'button' || ev.target.tagName.toLowerCase() === 'input') return;
   const h = document.createElement('div');
   h.className = 'clickHeart';
@@ -408,7 +413,7 @@ document.addEventListener('click', (ev)=>{
   setTimeout(()=> h.remove(), 1000);
 });
 
-/* ------------------ Typewriter helper ------------------ */
+/* typewriter */
 function typeWriter(text, el, speed=36, callback){
   el.innerHTML = '';
   let i=0;
@@ -417,29 +422,24 @@ function typeWriter(text, el, speed=36, callback){
       el.innerHTML += text.charAt(i);
       i++;
       setTimeout(step, speed);
-    }else{
-      if(callback) callback();
-    }
+    }else if(callback) callback();
   }
   step();
 }
 
-/* ------------------ Shareable link generation ------------------ */
+/* shareable url */
 function setShareableURL(from, to){
   const base = location.origin + location.pathname;
   const params = new URLSearchParams({from, to});
   const url = `${base}?${params.toString()}`;
-  history.replaceState(null, '', url); // updates address bar
+  history.replaceState(null, '', url);
   return url;
 }
-
-/* copy to clipboard helpers */
 async function copyText(str){
   try{
     await navigator.clipboard.writeText(str);
     alert('Link copied to clipboard!');
   }catch(e){
-    // fallback
     const ta = document.createElement('textarea');
     ta.value = str; document.body.appendChild(ta);
     ta.select(); document.execCommand('copy'); ta.remove();
@@ -447,20 +447,19 @@ async function copyText(str){
   }
 }
 
-/* ------------------ Main Flow ------------------ */
+/* Main flow */
 function generateProposal(){
   const from = (fromInp.value || '').trim();
   const to = (toInp.value || '').trim();
   if(!from || !to){ alert('Please enter both names.'); return; }
   currentFrom = from; currentTo = to;
-
-  // update URL so linkable
   setShareableURL(currentFrom, currentTo);
 
-  // play proposal music if allowed
+  // Start music as user gesture
+  musicOn = true;
   proposalMusic.play().catch(()=>{});
+  musicToggleBtn.textContent = '🔊 Music: On';
 
-  // show step 2 & typewriter message
   showScreen('screen2');
   const t1 = document.getElementById('type1');
   const msg1 = `Hello ${escapeHtml(currentTo)} ❤️\n𝐊𝐲𝐚 𝐀𝐚𝐩 𝐘𝐡𝐚 𝐂𝐥𝐢𝐜𝐤 𝐊𝐫𝐨𝐠𝐢 𝐌𝐞𝐫𝐞 𝐋𝐢𝐲𝐞 𝐏𝐥𝐬 💕`;
@@ -479,16 +478,14 @@ function goBack(step){
   if(step===2) { showScreen('screen2'); }
 }
 
-/* ------------------ YES click -> love meter animation & final ------------------ */
+/* YES click */
 function yesClick(){
-  // heart bursts around button
   const yesBtn = document.getElementById('yesBtn');
   const rect = yesBtn.getBoundingClientRect();
   for(let i=0;i<14;i++){
     const b = document.createElement('div');
     b.className='burstHeart';
     b.innerHTML = ['💞','💗','💕'][Math.floor(Math.random()*3)];
-    // random offsets
     const x = rect.left + rect.width/2 + (Math.random()*240 - 120);
     const y = rect.top + rect.height/2 + (Math.random()*120 - 60);
     b.style.left = x + 'px';
@@ -498,11 +495,9 @@ function yesClick(){
     setTimeout(()=> b.remove(), 1200);
   }
 
-  // show screen4 and animate love counter
   showScreen('screen4');
   const counter = document.getElementById('loveCounter');
-  let v=0;
-  const target = 143;
+  let v=0; const target=143;
   const step = Math.max(1, Math.floor(target/60));
   const timer = setInterval(()=>{
     v += step;
@@ -510,26 +505,21 @@ function yesClick(){
     counter.textContent = v + ' ❤️';
   }, 22);
 
-  // prepare WhatsApp share message & update WA button
   updateWhatsAppButton();
 }
 
-/* ------------------ Celebration screen (Option B) ------------------ */
+/* Celebration screen (Option B) */
 function showCelebrate(){
-  // stop proposal music, start celebration music
   try { proposalMusic.pause(); } catch(e){}
   celebrationMusic.currentTime = 0;
   celebrationMusic.play().catch(()=>{});
 
-  // show celebration screen
   showScreen('screen5');
-  // softly spawn extra rose petals & confetti
   spawnConfettiSoft(28);
-  // big floating hearts
   for(let i=0;i<10;i++){ setTimeout(()=> spawnFloatingBurstyHeart(), i*220); }
 }
 
-/* spawn romantic soft confetti pieces */
+/* confetti and hearts */
 function spawnConfettiSoft(n){
   for(let i=0;i<n;i++){
     const c=document.createElement('div');
@@ -544,8 +534,6 @@ function spawnConfettiSoft(n){
     setTimeout(()=> c.remove(), 9000);
   }
 }
-
-/* spawn larger hearts during celebrate */
 function spawnFloatingBurstyHeart(){
   const h = document.createElement('div');
   h.className='heart';
@@ -557,20 +545,17 @@ function spawnFloatingBurstyHeart(){
   setTimeout(()=> h.remove(), 9000);
 }
 
-/* ------------------ WhatsApp share & copy link ------------------ */
+/* WhatsApp share & copy link */
 function getCurrentProposalURL(){
   const base = location.origin + location.pathname;
   const params = new URLSearchParams({from: currentFrom, to: currentTo});
   return `${base}?${params.toString()}`;
 }
-
 function updateWhatsAppButton(){
   const btn = document.getElementById('waShareBtn');
   if(!btn) return;
   btn.onclick = ()=> shareWhatsApp();
 }
-
-/* shareWhatsApp(true) will share celebration screen text */
 function shareWhatsApp(isCelebration=false){
   const url = getCurrentProposalURL();
   let text;
@@ -581,62 +566,45 @@ function shareWhatsApp(isCelebration=false){
   }
   const encoded = encodeURIComponent(text);
   const waUrl = `https://wa.me/?text=${encoded}`;
-  // open WA in new tab
   window.open(waUrl, '_blank');
 }
-
-/* copy proposal link utility */
 function copyProposalLink(){
   const url = getCurrentProposalURL();
   copyText(url);
 }
-
-/* copy current page url (could be empty if not generated) */
 function copyCurrentURL(){
-  const url = location.href;
-  copyText(url);
+  copyText(location.href);
 }
 
-/* reset */
+/* reset and helpers */
 function resetAll(){
-  // pause all audios
   try{ celebrationMusic.pause(); }catch(e){}
   try{ proposalMusic.pause(); }catch(e){}
-  // clear params
   history.replaceState(null,'',location.pathname);
   currentFrom = ''; currentTo = '';
   fromInp.value=''; toInp.value='';
-  // return to home
   showScreen('screen1');
+  musicOn = false; musicToggleBtn.textContent = '🔈 Music: Off';
 }
-
-/* small helper to escape HTML in typewriter */
 function escapeHtml(s){
   return String(s).replace(/[&<>"']/g, (m)=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]);
 }
-
-/* ------------------ Download screenshot (basic) ------------------ */
-/* This uses html2canvas approach — but to avoid external libs, we do a simple fallback:
-   - If browser supports 'navigator.clipboard' and 'html2canvas' isn't present, we try printing.
-   For full accurate screenshot, integrate html2canvas on server or bundle it. */
 function downloadScreenshot(){
-  alert('To save a high-quality screenshot use your device screenshot feature (mobile: power+volume, desktop: PrintScreen).');
+  alert('To save a screenshot, use your device screenshot feature (mobile: power+volume, desktop: PrintScreen).');
 }
 
-/* ------------------ Auto-fill from URL on page load ------------------ */
+/* Auto-fill from URL on load */
 (function checkURLParams(){
   const p = new URLSearchParams(location.search);
   const f = p.get('from');
   const t = p.get('to');
   if(f) fromInp.value = f;
   if(t) toInp.value = t;
-  // If both present, auto-generate immediate proposal view
   if(f && t){
     currentFrom = f; currentTo = t;
-    // update URL canonical (ensure consistent encoding)
     setShareableURL(currentFrom, currentTo);
-    // auto-show step2
-    generateProposal();
+    // auto-generate after small delay to ensure user sees page (we treat as user gesture)
+    setTimeout(()=> generateProposal(), 300);
   }
 })();
 
