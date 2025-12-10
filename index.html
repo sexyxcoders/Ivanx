@@ -282,7 +282,7 @@ input[type="text"]:focus {
     <div id="s2" class="screen">
       <div id="msgTop" class="typewriter"></div>
       <div style="margin-top:12px; margin-bottom: 20px;" class="row">
-        <button id="askButton" class="btn" onclick="showProposalScreen()" disabled>**𝐏ᴀᴋᴋᴀ 𝐍ᴀᴀ?** [First, read my heart out below]</button>
+        <button id="askButton" class="btn" onclick="showProposalScreen()" disabled>𝐎ᴋʜ... [First, read my heart out below]</button>
       </div>
       <div class="langGrid" id="langGrid"></div>
       <div style="margin-top:25px" class="row">
@@ -550,7 +550,7 @@ function goBackHome(){
   history.replaceState(null,'',location.pathname);
   currentFrom=''; currentTo='';
   poemReadOnce = false;
-  if (askButton) { askButton.disabled = true; askButton.innerHTML = '**𝐏ᴀᴋᴋᴀ 𝐍ᴀᴀ?** [First, read my heart out below]'; }
+  if (askButton) { askButton.disabled = true; askButton.innerHTML = '𝐎ᴋʜ.. [First, read my heart out below]'; }
   try { proposalMusic.pause(); celebrationMusic.pause(); } catch(e){}
   musicEnabled = false;
   showScreen('s1');
