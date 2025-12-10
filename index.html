@@ -1,539 +1,665 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>💍 Proposal Maker — Light Pink Love Flow</title>
-<meta name="description" content="A cute proposal-maker page: type names, reveal a poem, show 'I love you' in 40 languages, then ask the big question." />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --soft-pink: #ffc4e1;
-    --accent-pink: #ff5eaa;
-    --rich-pink: #ff85c2;
-    --deep-burgundy: #1a0010;
-    --text-light: #fffcfd;
-    --glass: rgba(255,255,255,0.06);
-    --card: rgba(255,255,255,0.03);
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%; margin:0; font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial; -webkit-font-smoothing:antialiased;}
-  body{
-    background: linear-gradient(135deg, var(--deep-burgundy) 0%, #30001f 42%, #fff0f6 100%);
-    color:var(--text-light);
-    text-align:center;
-    padding:28px 14px;
-  }
+<html lang="en">    
+<head>    
+<meta charset="utf-8" />    
+<meta name="viewport" content="width=device-width,initial-scale=1" />    
+<title>💍 Romantic Proposal — Light Pink Love Flow</title>    
+<style>    
+:root{    
+  --soft-pink: #ffc4e1; /* Lighter/Softer for text */
+  --accent-pink: #ff5eaa; /* Primary button color */
+  --rich-pink: #ff85c2; /* Glass border/glow color */
+  --deep-burgundy: #1a0010; /* Deeper base */
+  --text-light: #fffcfd; /* Almost white for titles */
+}    
+*{box-sizing:border-box}    
+html,body{height:100%}    
+body{    
+  margin:0;    
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;    
+  /* Richer Background: Dark pinks fading to light */
+  background: linear-gradient(135deg, var(--deep-burgundy) 0%, #30001f 40%, #fff0f6 100%);    
+  color:var(--text-light);    
+  overflow-x:hidden;    
+  -webkit-font-smoothing:antialiased;    
+  text-align:center;    
+}
+/* outer glow border - Softer glow */  
+body::before{  
+content:"";  
+position:fixed;  
+inset:5px; /* Slightly wider inset for drama */
+border-radius:22px;
+box-shadow: 0 0 120px rgba(255,100,170,0.5); /* Softer, less intense glow */
+pointer-events:none;  
+}  
+/* container - Enhanced Glassmorphism Effect for maximum transparency and clarity */
+.container{
+width:94%;
+max-width:900px;
+margin:40px auto;
+padding:30px 24px;
+border-radius:25px;
+background: rgba(255, 182, 217, 0.02); /* Very low opacity for maximum transparency */
+border: 1px solid rgba(255, 255, 255, 0.08); /* Fainter border */
+backdrop-filter: blur(30px) saturate(200%); /* Increased blur for frosted look */
+box-shadow: 0 30px 80px rgba(0,0,0,0.4); /* Softer shadow */
+}
 
-  /* Card */
-  .card{
-    max-width:920px;
-    margin: 0 auto;
-    border-radius:20px;
-    padding:28px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,182,217,0.03));
-    border: 1px solid rgba(255,255,255,0.06);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.35);
-  }
+/* headings */
+.title{
+font-size:32px; 
+color:var(--text-light);
+margin-bottom:6px;
+text-shadow: 0 8px 30px rgba(255,80,150,0.4); /* Reduced glow intensity */
+font-weight: 900;
+letter-spacing: 1px;
+}
+.subtitle{
+color:#ffe7f3;
+margin-bottom:24px;
+font-size: 15px;
+}
 
-  h1{font-weight:800; margin:0 0 6px; font-size:28px; letter-spacing:0.6px;}
-  p.lead{margin:0 0 18px; color:#ffe7f3; font-size:14px}
+/* screens */
+.screen{ display:none; padding:10px; }
+.screen.active{ 
+  display:block; 
+  animation: screenIn 1000ms ease; /* Slower screen transition */
+}
+@keyframes screenIn{ from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:none} }
 
-  /* screens */
-  .screen{display:none}
-  .screen.active{display:block; animation:screenIn .7s ease both}
-  @keyframes screenIn{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
+/* typewriter */
+.typewriter{
+font-size:28px; 
+font-weight:700;
+color:var(--soft-pink);
+display:inline-block;
+white-space:pre-wrap;
+border-right: 4px solid var(--rich-pink); 
+padding-right:8px;
+margin-bottom:20px;
+text-shadow: 0 0 10px rgba(255,182,217,0.7); /* Softer glow */
+}
 
-  .controls{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:12px 0}
-  input[type="text"]{
-    min-width:180px;
-    padding:12px 14px;
-    border-radius:12px;
-    border:2px solid rgba(255,120,170,0.28);
-    background:var(--card);
-    color:var(--text-light);
-    font-size:15px;
-    outline:none;
-  }
-  input[type="text"]:focus{box-shadow:0 6px 18px rgba(255,90,160,0.12); border-color:var(--accent-pink)}
+/* inputs & buttons */
+.row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; align-items:center; }
+input[type="text"]{
+width:260px;
+padding:14px 18px;
+border-radius:14px;
+border:2px solid rgba(255,120,170,0.4); /* Softer border */
+background: rgba(255,255,255,0.08); /* More transparent input */
+color:var(--text-light);
+font-size:17px;
+transition: border-color .3s, box-shadow .3s;
+font-weight: 500;
+}
+input[type="text"]:focus {
+  border-color: var(--accent-pink);
+  outline: none;
+  box-shadow: 0 0 12px var(--accent-pink);
+}
+.btn{
+appearance:none;
+border:0;
+padding:14px 24px;
+border-radius:16px;
+font-size:17px;
+cursor:pointer;
+color:var(--text-light);
+background: linear-gradient(180deg, var(--rich-pink), var(--accent-pink));
+box-shadow: 0 8px 25px rgba(255,80,150,0.4), inset 0 3px 5px rgba(255,255,255,0.4); /* Softer shadow */
+transition: transform .3s ease, box-shadow .3s ease; /* Slower hover transition */
+font-weight: 600;
+letter-spacing: 0.5px;
+}
+.btn:active{ 
+  transform: translateY(1px); 
+  box-shadow: 0 4px 10px rgba(255,60,140,0.3), inset 0 1px 2px rgba(0,0,0,0.3);
+}
+.btn:hover{ 
+  transform: translateY(-2px) rotateX(2deg); /* Less aggressive 3D tilt */
+  box-shadow: 0 15px 40px rgba(255,60,140,0.5), inset 0 3px 5px rgba(255,255,255,0.4);
+}
 
-  .btn{
-    border:0;
-    padding:10px 16px;
-    border-radius:12px;
-    background: linear-gradient(180deg,var(--rich-pink),var(--accent-pink));
-    color:var(--text-light);
-    font-weight:600;
-    cursor:pointer;
-  }
-  .btn:disabled{opacity:.5; cursor:not-allowed}
+/* Disabled button style */
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  filter: grayscale(100%);
+  transform: none !important;
+  box-shadow: none !important;
+}
 
-  .btn.secondary{
-    background:transparent;
-    border:1px solid rgba(255,255,255,0.06);
-    font-weight:600;
-  }
+/* Specific Proposal Buttons (also softened) */
+.btn-yes {
+  background: linear-gradient(180deg, #b3f0ff, #00b3e6);
+  box-shadow: 0 15px 45px rgba(0, 179, 230, 0.5), inset 0 3px 5px rgba(255,255,255,0.5);
+  font-size: 24px; 
+  padding: 18px 40px;
+  font-weight: 900;
+}
+.btn-yes:hover {
+  transform: translateY(-3px) rotateX(2deg); 
+  box-shadow: 0 25px 60px rgba(0, 179, 230, 0.7), inset 0 3px 5px rgba(255,255,255,0.5);
+}
+.btn-no {
+    opacity: 0.7; /* More transparent */
+    background: linear-gradient(180deg, #5e003d, #42002b);
+    box-shadow: none;
+    padding: 12px 20px;
+    font-size: 15px;
+}
 
-  .typewriter{
-    display:inline-block;
-    font-weight:700;
-    color:var(--soft-pink);
-    font-size:20px;
-    white-space:pre-wrap;
-    border-right:3px solid var(--rich-pink);
-    padding-right:8px;
-  }
+/* 40-language list */
+.langGrid{
+display:grid;
+grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+gap:12px;
+margin-top:25px;
+text-align:left;
+max-width:920px;
+margin-left:auto;
+margin-right:auto;
+color:#ffe7f3;
+font-size:16px;
+padding:15px;
+background: rgba(255,255,255,0.04); /* Very transparent */
+border-radius:15px;
+}
+.langGrid > div {
+  padding: 4px 0;
+  opacity: 0;
+  animation: languageIn 800ms ease-out forwards; /* Slower reveal */
+}
+@keyframes languageIn {
+    from { opacity: 0; transform: translateX(-15px); }
+    to { opacity: 1; transform: none; }
+}
 
-  /* language grid */
-  .langGrid{
-    margin:18px auto 8px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:10px;
-    max-width:880px;
-    text-align:left;
-    padding:12px;
-    border-radius:10px;
-    background:rgba(255,255,255,0.02);
-  }
-  .langGrid .item{opacity:0; transform:translateY(6px); animation:langIn .45s ease forwards}
-  @keyframes langIn{to{opacity:1; transform:none}}
+/* poem box */
+.poemBox{
+max-width:820px;
+margin:30px auto 20px;
+padding:25px 30px;
+border-radius:18px; 
+background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,120,170,0.1)); /* Very transparent */
+border:1px solid rgba(255,120,170,0.2);
+color:#ffdfe9;
+font-style:italic;
+font-size:20px;
+box-shadow: 0 15px 35px rgba(255,60,140,0.2);
+display:none;
+white-space: pre-wrap;
+text-align: center;
+line-height: 1.6;
+}
+.poemBox.show {
+    display: block;
+    animation: poemFadeIn 1200ms ease forwards; /* Slower fade in */
+}
+@keyframes poemFadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
 
-  .poemBox{
-    margin:14px auto;
-    max-width:720px;
-    padding:18px;
-    border-radius:12px;
-    background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,120,170,0.03));
-    color:#ffdfe9;
-    font-style:italic;
-    display:none;
-    white-space:pre-wrap;
-    line-height:1.5;
-  }
-  .poemBox.show{display:block; animation:poemIn .6s ease both}
-  @keyframes poemIn{from{opacity:0; transform:scale(.995)} to{opacity:1; transform:none}}
 
-  .center{display:flex; gap:10px; justify-content:center; margin-top:12px; flex-wrap:wrap}
-  .celebrateText{font-size:36px; font-weight:900; color:var(--text-light); text-shadow:0 10px 30px rgba(255,80,150,0.25); margin:10px 0}
+/* Floating Hearts - Smoother, Slower */
+.heart, .petal, .star {
+    position: fixed;
+    top: 100vh; 
+    z-index: 10;
+    opacity: 0; 
+    pointer-events: none;
+    color: var(--soft-pink); 
+    filter: drop-shadow(0 0 4px rgba(255,182,217,0.4)); /* Softer glow */
+    animation-timing-function: linear !important; /* Constant speed */
+}
+/* New Smooth Animation for Hearts & Petals - MUCH LONGER DURATION */
+@keyframes floatUpSmooth { 
+    0%   { transform: translate(0, 0) scale(0.7) rotate(0deg); opacity: 0; }
+    5%   { opacity: 0.9; } /* Stay mostly opaque during rise */
+    50%  { transform: translate(var(--dx), -50vh) scale(1.0) rotate(var(--rot1)); opacity: 0.9; }
+    100% { transform: translate(var(--dx2), -110vh) scale(1.2) rotate(var(--rot2)); opacity: 0; }
+}
 
-  /* floating effects */
-  .floating{position:fixed; pointer-events:none; z-index:40}
-  .heart{font-size:22px; opacity:.95}
-  /* confetti style (simple squares) */
-  .confetti{position:fixed; width:10px; height:10px; border-radius:3px; z-index:50; pointer-events:none}
-
-  /* responsive tweaks */
-  @media (max-width:520px){
-    h1{font-size:22px}
-    .typewriter{font-size:18px}
-    input[type="text"]{min-width:140px}
-  }
+/* Confetti - Slower, Drifting Fall */
+.confettiPiece {
+    position: fixed;
+    border-radius: 50%;
+    opacity: 0.95;
+    z-index: 40;
+    animation: fall ease-in infinite;
+}
+/* Confetti Fall (added rotation) - LONGER DURATION */
+@keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+    5% { opacity: 0.9; }
+    100% { transform: translateY(110vh) rotate(540deg); opacity: 0.6; } /* Slower rotation, more fade */
+}
 </style>
-</head>
-<body>
-  <main class="card" role="main" aria-labelledby="title">
-    <h1 id="title">💍 Proposal Maker — Light Pink Love Flow</h1>
-    <p class="lead">Type both names, read the poem, show "I love you" in 40 languages — then ask the big question.</p>
 
-    <!-- SCREEN 1: Input -->
-    <section id="screen-1" class="screen active" aria-hidden="false">
-      <div style="margin-bottom:8px" class="typewriter" id="introText">Enter names to generate a romantic proposal ✨</div>
+</head>    
+<body>  <div class="container">    
+  <div class="title">𝐏ʀᴏᴘᴏsᴀʟ 𝐌ᴀᴋᴇʀ</div>    
+  <div class="subtitle">ᴘʀᴏᴘᴏsᴀʟ ᴍᴀᴋᴇʀ ᴍᴀᴅᴇ ʙʏ @noncarder</div>    
 
-      <div class="controls" aria-hidden="false">
-        <input id="fromInput" type="text" placeholder="Your name (e.g. Ivan)" aria-label="Your name" />
-        <input id="toInput" type="text" placeholder="Partner name (e.g. Abhika)" aria-label="Partner name" />
+  <div id="s1" class="screen active">    
+    <div class="typewriter">ᴇɴᴛᴇʀ ɴᴀᴍᴇ's ᴛᴏ ɢᴇɴᴇʀᴀᴛᴇ ʏᴏᴜʀ sᴘᴇᴄɪᴀʟ ᴘʀᴏᴘᴏsᴀʟ ғᴏʀ ʏᴏᴜʀ ʟᴏᴠᴇʟʏ 😊 ᴘᴇʀsᴏɴ.</div>    
+    <div class="row" style="margin-top:12px">    
+      <input id="fromInput" placeholder="Your name (e.g. Ivan)" type="text" />    
+      <input id="toInput" placeholder="Partner name (e.g. Riya)" type="text" />    
+    </div>  
+    <div class="row" style="margin-top:16px">    
+      <button class="btn" onclick="generateProposal()">𝙲𝙻𝙸𝙲𝙺 𝙷𝙴𝚁𝙴 𝚃𝙾 𝙶𝙴𝙽𝙴𝚁𝙰𝚃𝙴</button>    
+      <button class="btn" onclick="fillExample()">𝚃𝚁𝚈 𝙴𝚇𝙰𝙼𝙿𝙻𝙴</button>    
+    </div>    
+    <div style="margin-top:16px" class="row">
+        <button class="btn" onclick="copyCurrentURL()">🔗 𝙲𝙾𝙿𝚈 𝙿𝙰𝙶𝙴 𝙻𝙸𝙽𝙺</button>
+    </div>
+    <div style="margin-top:14px; color:#ffdfe9; font-size:14px">Tip: Share the generated link on WhatsApp using the Share button later.</div>    
+  </div>    
+
+  <div id="s2" class="screen">    
+    <div id="msgTop" class="typewriter"></div>  
+    <div style="margin-top:12px; margin-bottom: 20px;" class="row">    
+      <button id="askButton" class="btn" onclick="showProposalScreen()" disabled>**𝐏ᴀᴋᴋᴀ 𝐍ᴀᴀ?** [First, read my heart out below]</button>    
+    </div>
+    <div class="langGrid" id="langGrid"></div>    
+    <div style="margin-top:25px" class="row">    
+      <button class="btn" onclick="togglePoem()">𝚁𝙴𝙰𝙳 𝙼𝚈 𝙷𝙴𝙰𝚁𝚃 𝙾𝚄𝚃 📖</button>    
+      <button class="btn" onclick="shareWhatsApp()">S𝙷𝙰𝚁𝙴 𝙿𝚁𝙾𝙿𝙾𝚂𝙰𝙻 𝙻𝙸𝙽𝙺</button>    
+      <button class="btn" onclick="goBackHome()">⟵ 𝚂𝚃𝙰𝚁𝚃 𝙾𝚅𝙴𝚁</button>    
+    </div>    
+    <div id="poemBox" class="poemBox" aria-hidden="true"></div>    
+  </div>    
+
+  <div id="s2a" class="screen">
+      <div id="proposalMsg" class="typewriter" style="font-size: 38px; font-weight: 800; color: var(--rich-pink); margin-bottom: 60px;"></div> 
+      <div class="row">
+          <button class="btn btn-yes" onclick="showCelebrate()">ʏᴇs !! ᴀ ʟɪғᴇᴛɪᴍᴇ ᴏғ ʜᴀᴘᴘɪɴᴇss ❤</button>
       </div>
-
-      <div class="center">
-        <button id="generateBtn" class="btn" aria-label="Generate proposal">Generate Proposal</button>
-        <button id="exampleBtn" class="btn secondary" aria-label="Fill example">Try Example</button>
-        <button id="copyBtn" class="btn secondary" aria-label="Copy link">Copy Page Link</button>
+      <div class="row" style="margin-top: 15px;">
+          <button class="btn btn-no" onclick="goBackHome()">Can I think about it? (Go Back)</button>
       </div>
-      <div style="margin-top:10px; color:#ffdfe9; font-size:13px">Tip: If you open a generated link, names auto-fill. Music plays after a user interaction.</div>
-    </section>
+  </div>
 
-    <!-- SCREEN 2: Preview (languages + poem) -->
-    <section id="screen-2" class="screen" aria-hidden="true">
-      <div id="topMsg" class="typewriter" aria-live="polite"></div>
 
-      <div style="margin-top:14px" class="center">
-        <button id="readPoemBtn" class="btn secondary" aria-expanded="false">Read My Heart 📖</button>
-        <button id="askBtn" class="btn" disabled>Ask the Question</button>
-        <button id="shareBtn" class="btn secondary">Share WhatsApp</button>
-      </div>
+  <div id="s3" class="screen celebrate">    
+    <div class="big">sʜᴇ sᴀɪᴅ ʏᴇs 💍💖</div>    
+    <div class="sub">ᴀ ɴᴇᴡ ᴄʜᴀᴘᴛᴇʀ ʙᴇɢɪɴs — ʟᴏᴠᴇ, ʟᴀᴜɢʜᴛᴇʀ & ғᴏʀᴇᴠᴇʀ.</div>  
+    <div style="margin-top:16px" class="row">    
+        <button class="btn" onclick="shareWhatsApp(true)">📲 sʜᴀʀᴇ ᴛʜɪs ᴄᴇʟᴇʙʀᴀᴛɪᴏɴ</button>    
+        <button class="btn" onclick="downloadScreenshot()">💾 sᴀᴠᴇ Screenshot</button>    
+        <button class="btn" onclick="resetAll()">🔁 Start New</button>    
+    </div>    
+  </div>  
+</div> 
+<audio id="proposalMusic" loop preload="auto">    
+  <source src="https://files.catbox.moe/0p8z4m.mp3" type="audio/mpeg">    
+</audio>  
+<audio id="celebrationMusic" loop preload="auto">    
+  <source src="https://files.catbox.moe/1j3k9p.mp3" type="audio/mpeg">    
+</audio>  
+<div id="fxRoot"></div>  
+<script>    
+/* --------------------- Globals --------------------- */    
+const screens = {    
+  s1: document.getElementById('s1'),    
+  s2: document.getElementById('s2'),    
+  s2a: document.getElementById('s2a'), 
+  s3: document.getElementById('s3')    
+};    
+const fromInput = document.getElementById('fromInput');    
+const toInput   = document.getElementById('toInput');    
+const langGrid  = document.getElementById('langGrid');    
+const msgTop    = document.getElementById('msgTop');    
+const poemBox   = document.getElementById('poemBox');    
+const proposalMsg = document.getElementById('proposalMsg'); 
+const proposalMusic = document.getElementById('proposalMusic');    
+const celebrationMusic = document.getElementById('celebrationMusic');    
+const askButton = document.getElementById('askButton'); // New reference
+const fxRoot = document.getElementById('fxRoot');    
+let musicEnabled = false;
+let currentFrom = '';
+let currentTo = '';
+let poemVisible = false;
+let poemReadOnce = false; // New state variable
 
-      <div id="langGrid" class="langGrid" aria-hidden="false" role="list" style="margin-top:18px"></div>
-
-      <div id="poemBox" class="poemBox" role="region" aria-label="Poem"></div>
-    </section>
-
-    <!-- SCREEN 3: Proposal ask -->
-    <section id="screen-3" class="screen" aria-hidden="true">
-      <div id="proposalText" class="typewriter" style="font-size:20px; display:block; max-width:880px; margin:14px auto;"></div>
-      <div class="center" style="margin-top:18px">
-        <button id="yesBtn" class="btn" aria-label="Yes I do">Yes — marry me!</button>
-        <button id="backBtn" class="btn secondary" aria-label="Go back">Think about it (Go Back)</button>
-      </div>
-    </section>
-
-    <!-- SCREEN 4: Celebrate -->
-    <section id="screen-4" class="screen" aria-hidden="true">
-      <div class="celebrateText">She said YES 💍💖</div>
-      <p style="color:#ffe7f3; margin-top:6px">Celebrate — share the moment with friends and family.</p>
-      <div class="center" style="margin-top:12px">
-        <button id="shareCelebrateBtn" class="btn">Share Celebration</button>
-        <button id="screenshotBtn" class="btn secondary">Save Screenshot</button>
-        <button id="startOverBtn" class="btn secondary">Start New</button>
-      </div>
-    </section>
-  </main>
-
-  <!-- Hidden audio elements (play after user interaction to avoid autoplay block) -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="https://files.catbox.moe/0p8z4m.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="celebrateMusic" loop preload="auto">
-    <source src="https://files.catbox.moe/1j3k9p.mp3" type="audio/mpeg">
-  </audio>
-
-<script>
-/* ---------------------- Data & DOM ---------------------- */
+/* 40 "I love you" translations */
 const iLoveYou = [
-  {lang:'English', text:'I love you'},
-  {lang:'Hindi', text:'मैं तुमसे प्यार करता/करती हूँ'},
-  {lang:'Urdu', text:'میں تم سے محبت کرتا/کرتی ہوں'},
-  {lang:'Bengali', text:'আমি তোমাকে ভালোবাসি'},
-  {lang:'Gujarati', text:'હું તને પ્રેમ કરું છું'},
-  {lang:'Marathi', text:'मी तुझ्यावर प्रेम करतो/करते'},
-  {lang:'Tamil', text:'நான் உன்னை காதலிக்கிறேன்'},
-  {lang:'Telugu', text:'నేను నిన్నु ప్రేమిస్తున్నాను'},
-  {lang:'Kannada', text:'ನಾನು ನಿನ್ನನ್ನು ಪ್ರೀತಿಸುತ್ತೇನೆ'},
-  {lang:'Malayalam', text:'ഞാൻ നിന്നെ സ്നേഹിക്കുന്നു'},
-  {lang:'Punjabi', text:'ਮੈਂ ਤੈਨੂੰ ਪਿਆਰ ਕਰਦਾ/ਕਰਦੀ ਹਾਂ'},
-  {lang:'Nepali', text:'म तिमीलाई माया गर्छु'},
-  {lang:'Sinhala', text:'මම ඔයාට ආදරෙයි'},
-  {lang:'Arabic', text:'أحبك'},
-  {lang:'Turkish', text:'Seni seviyorum'},
-  {lang:'French', text:'Je t\'aime'},
-  {lang:'Spanish', text:'Te amo'},
-  {lang:'German', text:'Ich liebe dich'},
-  {lang:'Italian', text:'Ti amo'},
-  {lang:'Tagalog', text:'Mahal kita'},
-  {lang:'Indonesian', text:'Aku cinta kamu'},
-  {lang:'Thai', text:'ฉันรักคุณ'},
-  {lang:'Burmese', text:'ငါသင့်ကိုချစ်တယ်'},
-  {lang:'Korean', text:'사랑해요'},
-  {lang:'Japanese', text:'愛してる'},
-  {lang:'Chinese', text:'我爱你'},
-  {lang:'Russian', text:'Я тебя люблю'},
-  {lang:'Portuguese', text:'Eu te amo'},
-  {lang:'Vietnamese', text:'Anh yêu em / Em yêu anh'},
-  {lang:'Farsi', text:'دوستت دارم'},
-  {lang:'Hebrew', text:'אני אוהב/ת אותך'},
-  {lang:'Swahili', text:'Nakupenda'},
-  {lang:'Polish', text:'Kocham cię'},
-  {lang:'Dutch', text:'Ik hou van jou'},
-  {lang:'Greek', text:'Σ\'αγαπώ'},
-  {lang:'Romanian', text:'Te iubesc'},
-  {lang:'Czech', text:'Miluji tě'},
-  {lang:'Hungarian', text:'Szeretlek'},
-  {lang:'Malay', text:'Saya cinta padamu'},
-  {lang:'Bulgarian', text:'Обичам те'}
+{lang:'English', text:'I love you'},
+{lang:'Hindi', text:'मैं तुमसे प्यार करता/करती हूँ'},
+{lang:'Urdu', text:'میں تم سے محبت کرتا/کرتی ہوں'},
+{lang:'Bengali', text:'আমি তোমাকে ভালোবাসি'},
+{lang:'Gujarati', text:'હું તને પ્રેમ કરું છું'},
+{lang:'Marathi', text:'मी तुझ्यावर પ્રેમ करतो/કરતે'},
+{lang:'Tamil', text:'நான் உன்னை காதலிக்கிறேன்'},
+{lang:'Telugu', text:'నేను నిన్ను ప్రేమిస్తున్నాను'},
+{lang:'Kannada', text:'ನಾನು ನಿನ್ನನ್ನು ಪ್ರೀತಿಸುತ್ತೇನೆ'},
+{lang:'Malayalam', text:'ഞാൻ നിന്നെ സ്നേഹിക്കുന്നു'},
+{lang:'Punjabi', text:'ਮੈਂ ਤੈਨੂੰ ਪਿਆਰ ਕਰਦਾ/ਕਰਦੀ ਹਾਂ'},
+{lang:'Nepali', text:'म तिमीलाई माया गर्छु'},
+{lang:'Sinhala', text:'මම ඔයාට ආදරෙයි'},
+{lang:'Arabic', text:'أحبك'},
+{lang:'Turkish', text:'Seni seviyorum'},
+{lang:'French', text:'Je t\'aime'},
+{lang:'Spanish', text:'Te amo'},
+{lang:'German', text:'Ich liebe dich'},
+{lang:'Italian', text:'Ti amo'},
+{lang:'Tagalog', text:'Mahal kita'},
+{lang:'Indonesian', text:'Aku cinta kamu'},
+{lang:'Thai', text:'ฉันรักคุณ'},
+{lang:'Burmese', text:'ငါသင့်ကိုချစ်တယ်'},
+{lang:'Korean', text:'사랑해요'},
+{lang:'Japanese', text:'愛してる'},
+{lang:'Chinese', text:'我爱你'},
+{lang:'Russian', text:'Я тебя люблю'},
+{lang:'Portuguese', text:'Eu te amo'},
+{lang:'Vietnamese', text:'Anh yêu em / Em yêu anh'},
+{lang:'Farsi', text:'دوستت دارم'},
+{lang:'Hebrew', text:'אני אוהב/ת אותך'},
+{lang:'Swahili', text:'Nakupenda'},
+{lang:'Polish', text:'Kocham cię'},
+{lang:'Dutch', text:'Ik hou van jou'},
+{lang:'Greek', text:'Σ\'αγαπώ'},
+{lang:'Romanian', text:'Te iubesc'},
+{lang:'Czech', text:'Miluji tě'},
+{lang:'Hungarian', text:'Szeretlek'},
+{lang:'Malay', text:'Saya cinta padamu'},
+{lang:'Bulgarian', text:'Обичам те'}
 ];
 
+/* poem text (requested) */
 const poemText = `Tum chhodo bhii kuchh kehne ko..
 Mein kehta huu mujhe kehne do..
 Ek-tarfa ishq hii behtar hai..
 Mai krta huu tum rehne do..`;
 
-/* DOM */
-const fromInput = document.getElementById('fromInput');
-const toInput = document.getElementById('toInput');
-const generateBtn = document.getElementById('generateBtn');
-const exampleBtn = document.getElementById('exampleBtn');
-const copyBtn = document.getElementById('copyBtn');
+/* Proposal Message */
+const proposalText = (to, from) => `
+I Lᴏᴠᴇ Yᴏᴜ! 
+ᴍʏ ᴅᴇᴀʀᴇsᴛ ${to}, ғʀᴏᴍ ᴛʜᴇ ᴍᴏᴍᴇɴᴛ ɪ ᴍᴇᴛ ʏᴏᴜ, ᴍʏ ᴡᴏʀʟᴅ ᴛᴜʀɴᴇᴅ ɪɴᴛᴏ ᴛʜᴇ sᴏғᴛᴇsᴛ shade ᴏғ ᴘɪɴᴋ, ғɪʟʟᴇᴅ ᴡɪᴛʜ ᴀ ʟᴏᴠᴇ ᴛʜᴀᴛ ғʟᴏᴡs ᴇɴᴅʟᴇssʟʏ, ᴊᴜsᴛ ʟɪᴋᴇ ᴛʜᴏsᴇ ʟɪᴛᴛʟᴇ ʜᴇᴀʀᴛs. ʏᴏᴜ ᴀʀᴇ ᴍʏ ʟɪɢʜᴛ, ᴍʏ ʟᴀᴜɢʜᴛᴇʀ, ᴀɴᴅ ᴍʏ forever. ᴇᴠᴇʀʏ ᴅᴀʏ ᴡɪᴛʜ ʏᴏᴜ ɪs ᴀ ɢɪғᴛ ɪ ᴡᴀɴᴛ ᴛᴏ ᴋᴇᴇᴘ ᴏᴘᴇɴɪɴɢ.
 
-const screen1 = document.getElementById('screen-1');
-const screen2 = document.getElementById('screen-2');
-const screen3 = document.getElementById('screen-3');
-const screen4 = document.getElementById('screen-4');
+Wɪʟʟ Yᴏᴜ Mᴀʀʀʏ Mᴇ, ${to}, Aɴᴅ Mᴀᴋᴇ ${from} Tʜᴇ Hᴀᴘᴘɪᴇsᴛ Pᴇʀsᴏɴ Iɴ Tʜɪs Uɴɪᴠᴇʀsᴇ?
+`;
 
-const topMsg = document.getElementById('topMsg');
-const langGrid = document.getElementById('langGrid');
-const poemBox = document.getElementById('poemBox');
-const readPoemBtn = document.getElementById('readPoemBtn');
-const askBtn = document.getElementById('askBtn');
-const shareBtn = document.getElementById('shareBtn');
+/* --------------------- Helpers --------------------- */
+function showScreen(id){
+Object.values(screens).forEach(s=>s.classList.remove('active'));
+screens[id].classList.add('active');
+if(id === 's2' || id === 's2a') smallBurst();
+}
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-const proposalTextEl = document.getElementById('proposalText');
-const yesBtn = document.getElementById('yesBtn');
-const backBtn = document.getElementById('backBtn');
-
-const shareCelebrateBtn = document.getElementById('shareCelebrateBtn');
-const screenshotBtn = document.getElementById('screenshotBtn');
-const startOverBtn = document.getElementById('startOverBtn');
-
-const bgMusic = document.getElementById('bgMusic');
-const celebrateMusic = document.getElementById('celebrateMusic');
-
-let currentFrom = '';
-let currentTo = '';
-let poemRead = false;
-let musicStarted = false;
-
-/* ---------------------- Utilities ---------------------- */
-function showScreen(num){
-  [screen1, screen2, screen3, screen4].forEach(s => s.classList.remove('active'));
-  [screen1, screen2, screen3, screen4].forEach(s => s.setAttribute('aria-hidden', 'true'));
-  if(num === 1){ screen1.classList.add('active'); screen1.setAttribute('aria-hidden', 'false'); }
-  if(num === 2){ screen2.classList.add('active'); screen2.setAttribute('aria-hidden', 'false'); }
-  if(num === 3){ screen3.classList.add('active'); screen3.setAttribute('aria-hidden', 'false'); }
-  if(num === 4){ screen4.classList.add('active'); screen4.setAttribute('aria-hidden', 'false'); }
+/* copy helper */
+async function copyText(t){
+try{ await navigator.clipboard.writeText(t); alert('Link copied to clipboard!'); }
+catch(e){ const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); alert('Link copied to clipboard!'); }
 }
 
-/* Safely escape */
-function esc(s){ return String(s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+/* small visual burst (mix soft + intense) */
+function smallBurst(){
+const cx = window.innerWidth/2;
+const cy = window.innerHeight*0.4;
+for(let i=0;i<10;i++){
+const b = document.createElement('div');
+b.className = 'burst';
+b.innerHTML = ['💞','💗','💕'][Math.floor(Math.random()*3)];
+b.style.left = (cx + (Math.random()*300-150))+'px';
+b.style.top  = (cy + (Math.random()*80-40))+'px';
+b.style.color = `hsl(${330 + Math.random()*40},80%,70%)`;
+b.style.fontSize = (18 + Math.random()*18)+'px';
+document.body.appendChild(b);
+setTimeout(()=>b.remove(),900);
+}
+for(let i=0;i<14;i++){
+setTimeout(()=> spawnFloating('star'), i*80);
+}
+}
 
-/* Typewriter: synchronous, returns a Promise */
-function typewriter(text, el, speed=30){
-  return new Promise(resolve => {
-    el.innerHTML = '';
-    let i = 0;
-    function step(){
-      if(i < text.length){
-        const ch = text.charAt(i++);
-        el.innerHTML += (ch === '\n' ? '<br>' : esc(ch));
-        setTimeout(step, speed);
-      } else resolve();
+/* spawn floating elements - IMPROVED FLOWING EFFECT */
+function spawnFloating(type){
+const el = document.createElement('div');
+el.className = type;
+// Use emojis for transparent effect
+if(type==='heart') el.innerHTML = ['💕','💗','💞'][Math.floor(Math.random()*3)];
+if(type==='star') el.innerHTML = '✦';
+if(type==='petal') el.innerHTML = '🌸';
+
+// Randomize start position
+el.style.left = Math.random()*window.innerWidth + 'px';
+// Randomize animation variables for smoother, non-repeating flow
+const dur = (type==='petal' ? (15+Math.random()*10) : (18+Math.random()*7)); // Increased duration: 15-25s
+const horizontalDrift = (Math.random() * 40 - 20) + 'vw'; 
+const finalDrift = (Math.random() * 40 - 20) + 'vw';
+const rot1 = (Math.random() * 30 - 15) + 'deg';
+const rot2 = (Math.random() * 60 - 30) + 'deg';
+
+el.style.setProperty('--dx', horizontalDrift);
+el.style.setProperty('--dx2', finalDrift);
+el.style.setProperty('--rot1', rot1);
+el.style.setProperty('--rot2', rot2);
+
+if(type==='petal') el.style.fontSize = (18 + Math.random()*26) + 'px';
+else if(type==='heart') el.style.fontSize = (20 + Math.random()*30) + 'px';
+else el.style.fontSize = (10 + Math.random()*16) + 'px';
+
+el.style.animationName = 'floatUpSmooth'; 
+el.style.animationDuration = dur+'s';
+el.style.animationDelay = (-Math.random() * dur) + 's'; 
+
+document.body.appendChild(el);
+setTimeout(()=>el.remove(), (dur*1000)+500);
+}
+
+/* continuous spawns (slower for softer flow) */
+setInterval(()=>spawnFloating('heart'), 600); // Reduced heart spawn rate
+setInterval(()=>spawnFloating('petal'), 1200); // Reduced petal spawn rate
+setInterval(()=>spawnFloating('star'), 1600); // Reduced star spawn rate
+
+/* --------------------- Build language grid - SLOW REVEAL --------------------- */
+function slowRevealLanguageGrid(){
+    langGrid.innerHTML = '';
+    const delayBetweenItems = 200; // Slower reveal
+
+    iLoveYou.forEach((it, idx) => {
+        const node = document.createElement('div');
+        node.innerHTML = `<strong>${idx+1}. ${escapeHtml(it.lang)}:</strong> ${escapeHtml(it.text)}`;
+
+        setTimeout(() => {
+            langGrid.appendChild(node);
+            node.style.animationDelay = '0s'; 
+        }, idx * delayBetweenItems);
+    });
+}
+
+/* --------------------- Shareable link & URL handling --------------------- */
+function setShareableURL(from, to){
+const base = location.origin + location.pathname;
+const params = new URLSearchParams({from, to});
+const url = `${base}?${params.toString()}`;
+history.replaceState(null, '', url);
+return url;
+}
+function getProposalURL(){ return setShareableURL(currentFrom, currentTo); }
+function copyCurrentURL(){ copyText(location.href); }
+
+/* --------------------- Music control (Autostart on first interaction) --------------------- */
+function startMusic(){
+  if (!musicEnabled) {
+    musicEnabled = true;
+    proposalMusic.currentTime = 0;
+    proposalMusic.play().then(() => {
+      // Success
+    }).catch(e => {
+      console.warn("Music play blocked:", e.name);
+      musicEnabled = false;
+    });
+  }
+}
+
+/* --------------------- Flow functions --------------------- */
+function fillExample(){ fromInput.value='Ivan'; toInput.value='Riya'; }
+
+function generateProposal(){
+const f = (fromInput.value || '').trim();
+const t = (toInput.value || '').trim();
+if(!f || !t){ alert('Please enter both names.'); return; }
+currentFrom = f; currentTo = t;
+setShareableURL(currentFrom, currentTo);
+
+startMusic();
+
+showScreen('s2');
+const topMsg = `𝐇ᴇʟʟᴏ, 𝐊ʏᴀ 𝐀ᴀᴘ 𝐘ʜᴀ 𝐂ʟɪᴄᴋ 𝐊ʀᴏɢɪ 𝐌ᴇʀᴇ 𝐋ɪʏᴇ 𝐏ʟs 💕`;
+typeWriter(topMsg, msgTop, 100); // Slower typewriter speed
+
+slowRevealLanguageGrid();
+}
+
+function showProposalScreen(){
+    if (!poemReadOnce) {
+        alert("Please read the poem (Read My Heart Out 📖) first!");
+        return;
     }
-    step();
-  });
+
+    showScreen('s2a');
+    try { proposalMusic.pause(); } catch(e){}
+
+    const finalMsg = proposalText(currentTo, currentFrom);
+    typeWriter(finalMsg, proposalMsg, 120); // Slower typewriter speed
 }
 
-/* Copy text helper */
-async function copyText(text){
-  try{
-    await navigator.clipboard.writeText(text);
-    alert('Link copied to clipboard!');
-  }catch(e){
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    ta.remove();
-    alert('Link copied to clipboard!');
-  }
+
+function goBackHome(){
+history.replaceState(null,'',location.pathname);
+currentFrom=''; currentTo='';
+poemReadOnce = false; // Reset state
+try { proposalMusic.pause(); celebrationMusic.pause(); } catch(e){}
+musicEnabled = false;
+showScreen('s1');
 }
 
-/* Generate a shareable URL (does not navigate) */
-function updateShareURL(from, to){
-  const base = location.origin + location.pathname;
-  const params = new URLSearchParams({from, to});
-  const url = `${base}?${params.toString()}`;
-  history.replaceState(null, '', url);
-  return url;
-}
-
-/* Play background music once after user action */
-function startMusicOnce(){
-  if(musicStarted) return;
-  musicStarted = true;
-  // attempt to play, ignore promise rejection (autoplay policy)
-  bgMusic.currentTime = 0;
-  bgMusic.play().catch(() => {/* ignored */});
-}
-
-/* Confetti & floating hearts (lightweight) */
-function spawnConfetti(count = 40){
-  for(let i=0;i<count;i++){
-    const c = document.createElement('div');
-    c.className = 'confetti';
-    c.style.left = Math.random()*100 + 'vw';
-    c.style.top = (-10 - Math.random()*30) + 'vh';
-    c.style.width = (6 + Math.random()*12) + 'px';
-    c.style.height = c.style.width;
-    c.style.background = ['#ff6f9f','#ff006e','#00b3e6','#ffffff'][Math.floor(Math.random()*4)];
-    c.style.opacity = 0.95;
-    document.body.appendChild(c);
-    // animate using CSS transitions
-    const dur = 6 + Math.random()*6;
-    c.animate([
-      { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
-      { transform: `translateY(${110 + Math.random()*40}vh) rotate(${360 + Math.random()*720}deg)`, opacity: 0.6 }
-    ], { duration: dur*1000, easing: 'cubic-bezier(.2,.8,.2,1)'});
-    setTimeout(()=>c.remove(), (dur*1000) + 200);
-  }
-}
-function spawnHearts(count = 12){
-  for(let i=0;i<count;i++){
-    const h = document.createElement('div');
-    h.className = 'floating heart';
-    h.innerText = ['💞','💗','💕'][Math.floor(Math.random()*3)];
-    h.style.left = (10 + Math.random()*80) + 'vw';
-    h.style.top = (90 + Math.random()*10) + 'vh';
-    document.body.appendChild(h);
-    const dur = 10 + Math.random()*8;
-    h.animate([
-      { transform: 'translateY(0) scale(.9)', opacity: 0 },
-      { transform: `translateY(-${40 + Math.random()*80}vh) scale(1)`, opacity: 1 },
-      { transform: `translateY(-${140 + Math.random()*120}vh) scale(1.1)`, opacity: 0 }
-    ], { duration: dur*1000, easing: 'linear' });
-    setTimeout(()=>h.remove(), (dur*1000)+300);
-  }
-}
-
-/* ---------------------- Build language grid (slow reveal) ---------------------- */
-function buildLangGrid(){
-  langGrid.innerHTML = '';
-  const delayBetween = 110; // ms
-  iLoveYou.forEach((it, idx) => {
-    const node = document.createElement('div');
-    node.className = 'item';
-    node.setAttribute('role','listitem');
-    node.style.animationDelay = (idx * 0.08) + 's';
-    node.innerHTML = `<strong>${idx+1}. ${esc(it.lang)}:</strong> ${esc(it.text)}`;
-    langGrid.appendChild(node);
-  });
-}
-
-/* ---------------------- Event flows ---------------------- */
-
-generateBtn.addEventListener('click', async () => {
-  const f = (fromInput.value || '').trim();
-  const t = (toInput.value || '').trim();
-  if(!f || !t){ alert('Please enter both names.'); return; }
-
-  currentFrom = f; currentTo = t;
-  updateShareURL(currentFrom, currentTo);
-
-  startMusicOnce(); // user interaction triggers play attempt
-  showScreen(2);
-
-  topMsg.innerText = '';
-  await typewriter(`Hello ${t} — a special message awaits.`, topMsg, 28);
-
-  // populate language grid
-  buildLangGrid();
-
-  // enable Read Poem button (styling only)
-  readPoemBtn.disabled = false;
-  readPoemBtn.setAttribute('aria-expanded','false');
-
-  // disable askBtn until poem read at least once
-  askBtn.disabled = true;
-  poemRead = false;
-});
-
-exampleBtn.addEventListener('click', () => {
-  fromInput.value = 'Ivan';
-  toInput.value = 'Abhika';
-});
-
-copyBtn.addEventListener('click', () => {
-  const url = updateShareURL(fromInput.value || '', toInput.value || '');
-  copyText(url);
-});
-
-/* Poem toggle */
-readPoemBtn.addEventListener('click', async () => {
-  // ensure music started
-  startMusicOnce();
-
-  poemBox.classList.toggle('show');
-  const isNowShown = poemBox.classList.contains('show');
-  readPoemBtn.setAttribute('aria-expanded', String(isNowShown));
-  if(isNowShown){
-    poemBox.innerText = ''; // use typewriter for poem
-    await typewriter(poemText, poemBox, 60);
-    poemRead = true;
-    // unlock the ask button
-    askBtn.disabled = false;
-  } else {
-    poemBox.innerText = '';
-  }
-});
-
-/* Ask flow */
-askBtn.addEventListener('click', async () => {
-  if(!poemRead){
-    alert('Please read the poem first.');
-    return;
-  }
-  showScreen(3);
-  // show final message with names escaped
-  const final = `I Lᴏᴠᴇ Yᴏᴜ!\nMy dearest ${esc(currentTo)}, from the moment I met you... Will you marry me and make ${esc(currentFrom)} the happiest person in the universe?`;
-  await typewriter(final, proposalTextEl, 36);
-});
-
-/* back to start */
-backBtn.addEventListener('click', () => {
-  // go back to preview screen so they can read poem again
-  showScreen(2);
-});
-
-/* yes -> celebrate */
-yesBtn.addEventListener('click', () => {
-  // stop background, play celebration music
-  try{ bgMusic.pause(); } catch(e){}
-  celebrateMusic.currentTime = 0;
-  celebrateMusic.play().catch(()=>{});
-  showScreen(4);
-  spawnConfetti(80);
-  spawnHearts(26);
-});
-
-/* share actions */
-shareBtn.addEventListener('click', () => {
-  const url = updateShareURL(currentFrom, currentTo);
-  const message = `Hi ${currentTo || ''}! ${currentFrom || 'Someone'} has a special proposal for you 💖 Open here: ${url}`;
-  window.open('https://wa.me/?text=' + encodeURIComponent(message), '_blank');
-});
-shareCelebrateBtn.addEventListener('click', () => {
-  const url = updateShareURL(currentFrom, currentTo);
-  const message = `She said YES! 💍 ${currentFrom || ''} & ${currentTo || ''} — Celebrate with us: ${url}`;
-  window.open('https://wa.me/?text=' + encodeURIComponent(message), '_blank');
-});
-
-/* screenshot placeholder (desktop/mobile screenshot recommended) */
-screenshotBtn.addEventListener('click', () => {
-  alert('For best quality, use your device screenshot tools (mobile: power+volume). To programmatically save, include html2canvas and I can add a capture button.');
-});
-
-/* start over */
-startOverBtn.addEventListener('click', () => {
-  // reset state and URL
-  currentFrom = ''; currentTo = '';
-  fromInput.value = '';
-  toInput.value = '';
-  poemBox.innerText = '';
+/* Poem toggle with typewriter and dramatic glow */
+function togglePoem(){
+if(poemVisible){
+  poemVisible = false;
   poemBox.classList.remove('show');
-  poemRead = false;
-  updateShareURL('', '');
-  try{ bgMusic.pause(); celebrateMusic.pause(); } catch(e){}
-  showScreen(1);
-});
+  poemBox.innerHTML = '';
+} else {
+  poemVisible = true;
+  poemBox.innerHTML = ''; 
+  poemBox.classList.add('show'); 
+  smallBurst();
+  typeWriter(poemText, poemBox, 100); // Slower typewriter speed
+  try { proposalMusic.volume = 0.9; setTimeout(()=>proposalMusic.volume = 1.0, 1200); } catch(e){}
 
-/* ---------------------- Auto-fill from URL on load ---------------------- */
-(function initFromURL(){
-  const p = new URLSearchParams(location.search);
-  const f = p.get('from'); const t = p.get('to');
-  if(f) fromInput.value = f;
-  if(t) toInput.value = t;
-  if(f && t){
-    // auto-generate preview after a short delay
-    setTimeout(()=> generateBtn.click(), 350);
+  // *** NEW FUNCTIONALITY: Enable the 'Ask' button after reading poem ***
+  if (!poemReadOnce && askButton) {
+      poemReadOnce = true;
+      askButton.disabled = false;
+      askButton.innerHTML = '𝐎ᴋʜ... [Click here to ask the final question!]';
   }
+}
+}
+
+/* typewriter function plots text into element; supports \n */
+function typeWriter(text, el, speed=36, cb){
+el.innerHTML = '';
+let i = 0;
+function step(){
+  if(i < text.length){
+    const ch = text.charAt(i);
+    el.innerHTML += (ch === '\n' ? '<br>' : escapeHtml(ch));
+    i++;
+    setTimeout(step, speed);
+  } else {
+    if(cb) cb();
+  }
+}
+step();
+}
+
+/* --------------------- WhatsApp share --------------------- */
+function shareWhatsApp(isCelebration = false){
+const url = getProposalURL();
+let message;
+if(isCelebration){
+message = `She said YES! 💍💖 ${currentFrom} & ${currentTo} — Celebrate with us: ${url}`;
+} else {
+message = `Hi ${currentTo}! ${currentFrom} has a special proposal for you 💖 Open here: ${url}`;
+}
+const link = 'https://wa.me/?text=' + encodeURIComponent(message);
+window.open(link, '_blank');
+}
+
+/* --------------------- Celebration --------------------- */
+function showCelebrate(){
+try { proposalMusic.pause(); } catch(e){}
+
+try { 
+  celebrationMusic.currentTime = 0; 
+  celebrationMusic.play().catch(e => {
+    console.warn("Celebration Music play blocked (non-critical):", e.name);
+  }); 
+} catch(e){}
+
+showScreen('s3');
+spawnConfetti(80); // Slightly less confetti
+for(let i=0;i<30;i++) setTimeout(()=>spawnFloating('heart'), i*150); // Slower burst
+for(let i=0;i<20;i++){ setTimeout(()=>spawnBurstAtRandom(), i*100); } // Slower burst
+}
+
+function resetAll(){
+  goBackHome();
+  try { celebrationMusic.pause(); } catch(e){}
+}
+
+/* burst at random location */
+function spawnBurstAtRandom(){
+  const b = document.createElement('div');
+  b.className = 'burst';
+  b.innerHTML = ['💖','💓','💞'][Math.floor(Math.random()*3)];
+  b.style.left = (Math.random()*window.innerWidth) + 'px';
+  b.style.top  = (Math.random()*window.innerHeight*0.8) + 'px';
+  b.style.color = `hsl(${320 + Math.random()*50},85%,70%)`;
+  b.style.fontSize = (24 + Math.random()*38) + 'px';
+  document.body.appendChild(b);
+  setTimeout(()=> b.remove(), 1100);
+}
+
+/* confetti pieces */
+function spawnConfetti(n){
+for(let i=0;i<n;i++){
+const c = document.createElement('div');
+c.className = 'confettiPiece';
+c.style.left = (Math.random()*100) + 'vw';
+c.style.top = (-10 - Math.random()*20) + 'vh';
+c.style.width = (8 + Math.random()*14) + 'px';
+c.style.height = (8 + Math.random()*14) + 'px';
+c.style.background = ['#ff6f9f','#ff006e','#00b3e6','#ffffff'][Math.floor(Math.random()*4)];
+c.style.animationDuration = (8 + Math.random()*6) + 's'; // Slower fall time
+c.style.animationDelay = (Math.random()*4) + 's';
+document.body.appendChild(c);
+setTimeout(()=> c.remove(), 15000);
+}
+}
+
+/* --------------------- screenshot helper (simple) --------------------- */
+function downloadScreenshot(){
+alert('Use your device screenshot (mobile: power+volume, desktop: PrintScreen) for best quality.');
+}
+
+/* --------------------- Auto-fill from URL on load --------------------- */
+(function initFromURL(){
+const p = new URLSearchParams(location.search);
+const f = p.get('from'); const t = p.get('to');
+if(f) fromInput.value = f;
+if(t) toInput.value = t;
+if(f && t){ setTimeout(()=> generateProposal(), 350); }
 })();
 
-/* Accessibility: allow Enter key submit on inputs */
-[fromInput, toInput].forEach(inp => {
-  inp.addEventListener('keydown', (e) => {
-    if(e.key === 'Enter') generateBtn.click();
-  });
-});
-</script>
-</body>
+</script>  </body>
 </html>
